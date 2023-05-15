@@ -1,0 +1,66 @@
+.nav-link {
+	color: white
+}
+
+.nav-link:hover {
+	color: #919191;
+	transition: all 300ms ease-in-out ;
+}
+
+.bi-brightness-high {
+	color: yellow;
+}
+
+.bi-moon-stars {
+	color: #fff;
+}
+
+.bi-brightness-high:hover {
+	color: #949405;
+	transition: all 300ms ease-in-out ;
+}
+
+.dark-mode {
+	height: 80vh;
+	background-color: #0D1117;
+}
+
+.dropdown-item {
+	color: white;
+}
+
+.navbar-nav .nav-link.show {
+	color: #9e9e9e;
+}
+
+.ligth-mode {
+	background-color: #fff;
+	color: black;
+}
+
+.container {
+	width: 1012px;
+}
+
+.more p{
+	font-size: 10px;
+	color: #6E7681;
+}
+
+a{
+	color: #fff;
+	text-decoration: none;
+}
+
+h2 {
+	font-weight: 300;
+}
+
+h2 a:hover {
+	text-decoration: underline;
+}
+
+.btn-link {
+	color: #fff;
+	text-decoration: none;
+}

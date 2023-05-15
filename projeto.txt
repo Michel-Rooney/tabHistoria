@@ -1,0 +1,52 @@
+Core
+
+Home (
+    Listagem dos post (Relevantes / Recentes)
+    Vizualização (Curtir / Comentar)
+)
+
+Member (
+    Login / Registro / Sair
+    Criar / Ver / Editar / Deletar as suas postagens
+)
+
+CRUD: CREATE / READ / UPDATE / DELETE
+
+
+
+
+
+Postagem (
+    nome
+    criador
+    qtd_like
+    comentarios
+    data_criação
+    data_update
+    conteudo
+)
+
+comemt (
+    nome,
+    like,
+    data_criação
+    conteudo,
+    comemt
+
+)
+
+Member (
+    criador
+    email
+    senha
+    postagem
+)
+
+
+Compo de escrita (
+    Titulo
+    paragrafo
+    negrito
+    italico
+    imagem
+)
