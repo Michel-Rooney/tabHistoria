@@ -1,18 +1,13 @@
-const btnMode = document.querySelector('#change-theme')
-const main = document.querySelector('main')
 
-btnMode.addEventListener('click', ()=> {
-    main.classList.toggle('ligth-mode')
 
-    if (main.classList.contains('dark-mode')) {
-        main.classList.remove('dark-mode')
-        main.classList.add('ligth-mode')
-        btnMode.classList.remove('bi-brightness-high')
-        btnMode.classList.add('bi-moon-stars')
-    } else {
-        main.classList.remove('ligth-mode')
-        main.classList.add('dark-mode')
-        btnMode.classList.remove('bi-moon-stars')  
-        btnMode.classList.add('bi-brightness-high')
-    }
-})
+
+// Option to see password
+const togglePasswordButton = document.getElementById("toggle-password");
+const passwordInput = document.getElementById("password");
+
+togglePasswordButton.addEventListener("click", () => {
+const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+passwordInput.setAttribute("type", type);
+togglePasswordButton.firstElementChild.classList.toggle("bi-eye");
+togglePasswordButton.firstElementChild.classList.toggle("bi-eye-slash");
+});

@@ -21,7 +21,6 @@
 }
 
 .dark-mode {
-	height: 80vh;
 	background-color: #0D1117;
 }
 
@@ -34,8 +33,15 @@
 }
 
 .ligth-mode {
+	height: 80vh;
 	background-color: #fff;
 	color: black;
+}
+
+.ligth-mode .news,
+.ligth-mode .news a,
+.ligth-mode .btn{
+	color: #000;
 }
 
 .container {
@@ -63,4 +69,37 @@ h2 a:hover {
 .btn-link {
 	color: #fff;
 	text-decoration: none;
+}
+
+body {
+	background-color: #161B22;
+}
+
+.footer {
+	margin-bottom: 0;
+	color: #fff;
+	max-height: 100px;
+}
+
+.bg-dark {
+	background-color: #303030;
+}
+
+input[type="password"] {
+	color: red; /* Define a cor do texto */
+	/* Adicione outros estilos conforme necessário */
+}
+
+.form-control:focus {
+  border-color: white;
+  box-shadow: 0 0 0 0.1rem white;
+}
+
+.editor-toolbar a {
+	color: #ffffff!important;
+}
+
+#mytextarea {
+	position: fixed;
+	color: #fff;
 }

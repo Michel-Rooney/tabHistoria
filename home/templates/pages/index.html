@@ -1,12 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}TabHistoria{% endblock %}
 
 {% block body %}
-{% include '../partials/main.html' %}
-
-<footer class="footer" style="height: 10vh;">
-	&copy;
-</footer>
+<main class="dark-mode" id="main">
+  <section class="container text-white pt-4">
+    <div class="news pt-1">
+      <h2 class="fs-6">1. <a href="#">Erro que o yarn dar ao ser instalado pelo docker ?</a></h2>
+      <div class="more d-flex align-items-center justify-content-between" style="width: 20%;">
+        <p>5 comentarios</p>
+        <p>-</p>
+        <p>Author</p>
+        <p>-</p>
+        <p>time ago</p>
+      </div>
+    </div>
+    <div class="news pt-1">
+      <h2 class="fs-6">1. <a href="#">Erro que o yarn dar ao ser instalado pelo docker ?</a></h2>
+      <div class="more d-flex align-items-center justify-content-between" style="width: 20%;">
+        <p>5 comentarios</p>
+        <p>-</p>
+        <p>Author</p>
+        <p>-</p>
+        <p>time ago</p>
+      </div>
+    </div>
+    <div class="news pt-1">
+      <h2 class="fs-6">1. <a href="#">Erro que o yarn dar ao ser instalado pelo docker ?</a></h2>
+      <div class="more d-flex align-items-center justify-content-between" style="width: 20%;">
+        <p>5 comentarios</p>
+        <p>-</p>
+        <p>Author</p>
+        <p>-</p>
+        <p>time ago</p>
+      </div>
+    </div>
+  </section>
+  <section class="container d-flex align-items-center justify-content-center px-1">
+    <div class="pass">
+      <button class="btn btn-link">&lt;&lt; Anterior</button>
+      <button class="btn btn-link">Proximo &gt;&gt;</button>
+    </div>
+  </section>
+</main>
 {% endblock %}

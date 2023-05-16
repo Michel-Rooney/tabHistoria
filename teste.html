@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Markdown para HTML</title>
+</head>
+<body>
+	<div style="color: white;" class="article" id="article-section">oi *mano* como **vai?**
+    *oi* ![](https://www.pontotel.com.br/wp-content/uploads/2022/05/imagem-corporativa.jpg)
+  </div>
+	<div class="article" id="article-section2"></div>
+  <script type="text/javascript" src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+  <script>
+    const htmlContent = document.createElement("div");
+    var converter = new showdown.Converter(),
+    text = document.getElementById('article-section').innerHTML;
+    htmlContent.innerHTML = converter.makeHtml(text);
+    document.getElementById('article-section2').appendChild(htmlContent)
+  </script>
+</body>
+</html>
+

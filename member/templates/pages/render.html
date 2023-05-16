@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+<main class="dark-mode" id="main" style="height: 80vh;">
+  <section class="container text-white pt-4">
+    <p style="color: transparent;" class="article" id="article-section">oi *mano* como **vai?** *oi* 
+      ![](https://www.pontotel.com.br/wp-content/uploads/2022/05/imagem-corporativa.jpg)
+    </p>
+    <p class="article" id="article-section2"></p>
+  </section>
+</main>
+<script type="text/javascript" src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script>
+  const htmlContent = document.createElement("div");
+  var converter = new showdown.Converter(),
+  text = document.getElementById('article-section').innerHTML;
+  htmlContent.innerHTML = converter.makeHtml(text);
+  document.getElementById('article-section2').appendChild(htmlContent)
+</script>
+{% endblock %}

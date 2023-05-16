@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Post{% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <style>
+    .editor-toolbar a {
+	    color: #ffffff!important;
+    }
+    /* .CodeMirror {
+      background-color: black;
+      color: white;
+      caret-color: white;
+    } */
+  </style>
+{% endblock %}
+
+{% block body %}
+<main class="dark-mode" id="main">
+  <section class="container text-white pt-4">
+      <form action="{% url 'post' %}" method="post">{% csrf_token %}
+        <div class="form-group py-2">
+          <label for="title"><h3>Publicar novo conteúdo:</h3></label>
+          <input type="text" name="title" class="form-control bg-black border-dark text-white" id="title" aria-describedby="titleHelp">
+        </div>
+        <textarea name="text-content" id="mytextarea"></textarea>
+        <div class="d-flex justify-content-end py-4">
+          <input type="submit" class="btn btn-dark btn-sm" value="Publicar conteúdo">
+        </div>
+      </form>
+  </section>
+</main>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+  var simplemde = new SimpleMDE({
+    element: document.getElementById("mytextarea"),
+    spellChecker: false,
+    previewRender: function(plainText) {
+      return marked(plainText, {sanitize: true});
+    },
+    toolbar: [
+      "bold", "italic", "heading", "|",
+      "quote", "unordered-list", "ordered-list", "|",
+      "link", "image", "|",
+      {
+        name: "preview",
+        action: function(editor) {
+          var previewWindow = window.open("", "_blank", "width=800, height=600, scrollbars=yes");
+          var previewContent = marked(editor.value(), {sanitize: true});
+          previewWindow.document.write(previewContent);
+          previewWindow.document.close();
+        },
+        className: "fa fa-eye no-disable",
+        title: "Preview"
+      }
+    ]
+  });
+</script>
+{% endblock %}
