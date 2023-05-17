@@ -52,7 +52,7 @@ html, body {
 }
 
 .container {
-	width: 1012px;
+	max-width: 1012px;
 }
 
 .more p{
@@ -113,5 +113,8 @@ body {
 @media (max-width: 600px) {
 	ul.nav {
 		font-size: 10px;
+	}
+	.bi-plus-lg, #change-theme{
+		display: none;
 	}
 }
