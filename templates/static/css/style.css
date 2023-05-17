@@ -21,6 +21,7 @@
 }
 
 .dark-mode {
+	min-height: 80vh;
 	background-color: #0D1117;
 }
 
@@ -33,7 +34,7 @@
 }
 
 .ligth-mode {
-	height: 80vh;
+	min-height: 80vh;
 	background-color: #fff;
 	color: black;
 }
@@ -85,11 +86,6 @@ body {
 	background-color: #303030;
 }
 
-input[type="password"] {
-	color: red; /* Define a cor do texto */
-	/* Adicione outros estilos conforme necessário */
-}
-
 .form-control:focus {
   border-color: white;
   box-shadow: 0 0 0 0.1rem white;
@@ -102,4 +98,14 @@ input[type="password"] {
 #mytextarea {
 	position: fixed;
 	color: #fff;
+}
+
+.public img {
+	width: 900px;
+}
+
+@media (max-width: 600px) {
+	ul.nav {
+		font-size: 10px;
+	}
 }
