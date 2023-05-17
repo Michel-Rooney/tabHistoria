@@ -11,28 +11,21 @@
       <a class="btn btn-dark btn-sm" href="{% url 'post' %}"><i class="bi bi-plus-lg"> Publicar conteúdo</i></a>
     </div>
     <hr>
-    <div class="d-flex flex-column align-items-center">
+    <div class="d-flex flex-column align-items-center pb-4">
       <h3>Meus Post</h3>
     </div>
-    <div class="news pt-4">
-      <h2 class="fs-6">1. <a href="#">Erro que o yarn dar ao ser instalado pelo docker ?</a></h2>
-      <div class="more d-flex align-items-center justify-content-between" style="width: 20%;">
+    {% for post in posts %}
+    <div class="news pt-1">
+      <h2 class="fs-6">1. <a href="#">{{post.title}}</a></h2>
+      <div class="more d-flex align-items-center justify-content-start gap-2">
         <p>5 comentarios</p>
         <p>-</p>
-        <p>Author</p>
+        <p>{{post.creator}}</p>
         <p>-</p>
-        <p>time ago</p>
+        <p>{{post.creation_date}}</p>
       </div>
-      <div class="news pt-1">
-        <h2 class="fs-6">1. <a href="#">Erro que o yarn dar ao ser instalado pelo docker ?</a></h2>
-        <div class="more d-flex align-items-center justify-content-between" style="width: 20%;">
-          <p>5 comentarios</p>
-          <p>-</p>
-          <p>Author</p>
-          <p>-</p>
-          <p>time ago</p>
-        </div>
-      </div>
+    </div>
+    {% endfor %}
     </section>
   </main>
 {% endblock %}
