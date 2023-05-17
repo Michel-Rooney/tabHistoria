@@ -117,4 +117,12 @@ body {
 	.bi-plus-lg, #change-theme{
 		display: none;
 	}
+	.footer {
+		display: flex;
+		flex-direction: column;
+	}
+	.footer nav ul li {
+		font-size: 10px;
+		padding: 0 10px;
+	}
 }

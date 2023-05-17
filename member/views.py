@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Post
 
@@ -21,8 +21,8 @@ def post(request):
         post = Post(title=title, creator=request.user, content=text_content)
         post.save()
 
-        return redirect('/member/teste_render/')
+        return redirect(f'/member/profile')
     
-def teste_render(request):
-    post = Post.objects.first()
-    return render(request, 'pages/render.html', {'post':post})
+def post_viewer(request, id):
+    post = Post.objects.get(id=id)
+    return render(request, 'pages/post_viewer.html', {'post':post})

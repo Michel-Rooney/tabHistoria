@@ -5,17 +5,17 @@
 
 {% block body %}
 <main class="dark-mode" id="main" style="height: 80vh;">
-  <section class="container text-white pt-4">
-    <p style="color: transparent;" class="article" id="article-section">{{post.content}}</p>
-    <p class="article" id="article-section2"></p>
+  <p id="hidden" hidden>{{post.content}}</p>
+  <section class="container text-white pt-4 bg-black">
+    <p class="article" id="show"></p>
   </section>
 </main>
 <script type="text/javascript" src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <script>
   const htmlContent = document.createElement("div");
   var converter = new showdown.Converter(),
-  text = document.getElementById('article-section').innerHTML;
+  text = document.getElementById('hidden').innerHTML;
   htmlContent.innerHTML = converter.makeHtml(text);
-  document.getElementById('article-section2').appendChild(htmlContent)
+  document.getElementById('show').appendChild(htmlContent)
 </script>
 {% endblock %}

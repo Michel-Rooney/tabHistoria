@@ -16,7 +16,7 @@
     </div>
     {% for post in posts %}
     <div class="news pt-1">
-      <h2 class="fs-6">1. <a href="#">{{post.title}}</a></h2>
+      <h2 class="fs-6">1. <a href="{% url 'post_viewer' post.id %}">{{post.title}}</a></h2>
       <div class="more d-flex align-items-center justify-content-start gap-2">
         <p>5 comentarios</p>
         <p>-</p>
