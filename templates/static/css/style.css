@@ -1,3 +1,9 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 .nav-link {
 	color: white
 }
@@ -50,7 +56,7 @@
 }
 
 .container {
-	width: 1012px;
+	max-width: 1012px;
 }
 
 .more p{
@@ -111,5 +117,16 @@ body {
 @media (max-width: 600px) {
 	ul.nav {
 		font-size: 10px;
+	}
+	.bi-plus-lg, #change-theme{
+		display: none;
+	}
+	.footer {
+		display: flex;
+		flex-direction: column;
+	}
+	.footer nav ul li {
+		font-size: 10px;
+		padding: 0 10px;
 	}
 }

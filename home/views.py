@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
+from member.models import Post
+
+
 
 def home(request):
-    return render(request, 'pages/index.html')
-
+    posts = Post.objects.all()
+    return render(request, 'pages/index.html', {'posts': posts})
 
 def register(request):
     if request.method == 'GET':

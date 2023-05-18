@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+<main class="dark-mode" id="main" style="height: 80vh;">
+  <p id="hidden" hidden>{{post.content}}</p>
+  <section class="container text-white pt-4 bg-black">
+    <p class="article" id="show"></p>
+  </section>
+</main>
+<script type="text/javascript" src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script>
+  const htmlContent = document.createElement("div");
+  var converter = new showdown.Converter(),
+  text = document.getElementById('hidden').innerHTML;
+  htmlContent.innerHTML = converter.makeHtml(text);
+  document.getElementById('show').appendChild(htmlContent)
+</script>
+{% endblock %}
