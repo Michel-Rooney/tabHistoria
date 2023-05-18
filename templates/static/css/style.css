@@ -38,10 +38,14 @@
 	background-color: #fff;
 	color: black;
 }
+.text-white {
+	color: white ;
+}
 
 .ligth-mode .news,
 .ligth-mode .news a,
-.ligth-mode .btn{
+.ligth-mode .btn,
+.ligth-mode .text-white{
 	color: #000;
 }
 
