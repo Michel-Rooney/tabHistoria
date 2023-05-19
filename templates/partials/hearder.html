@@ -21,9 +21,9 @@
           <ul class="dropdown-menu" aria-labelledby="memberDropdown" style="background-color: #161B22;">
             <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="bi bi-house-door"></i> {{user.username}}</a></li>
             <li><hr style="height: 1px; color: white;"></li>
-            <li><a class="dropdown-item" href="{% url 'post' %}">Publicar novo conteúdo</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Meus conteúdos</a></li>
-            <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+            <li><a class="dropdown-item" href="{% url 'post' %}"><i class="bi bi-plus-lg"></i> Publicar novo conteúdo</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="bi bi-card-list"></i>    Meus conteúdos</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Editar perfil</a></li>
             <li><hr style="height: 1px; color: white;"></li>
             <div class="d-flex  align-items-center justify-content-center">
               <li class="nav-item"><i class="bi bi-brightness-high nav-link change-sun"></i></li>

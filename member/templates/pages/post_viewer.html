@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load comment_filters %}
 
 {% block title %}{{post.title}}{% endblock %}
 {% block head %}
@@ -44,15 +45,15 @@
         <input type="submit" class="btn btn-success" value="Responder">
       </div>
     </form>
-</section>
+  </section>
 
 
   <section class="container text-white pt-4">
-    {% for comment in post.comments.all %}
+    {% for comment in comments %}
       <div style="background-color: black;" class="my-4">
         <p class="text-white">{{ comment.creator }} {{ comment.content }}</p>
         <section class="container text-white pt-4 border">
-          <form action="{% url 'comment_post' post.id %}" method="post">{% csrf_token %}
+          <form action="{% url 'comment_comment' comment.id %}" method="post">{% csrf_token %}
             <div class="form-group py-2">
               <button class="btn btn-dark btn-sm" value="Publicar conteúdo">Responder</button>
             </div>
@@ -63,9 +64,9 @@
             </div>
           </form>
         </section>
-        {% if comment.comments.exists %}
-          {% include 'comment.html' with comments=comment.comments.all %}
-        {% endif %}
+
+        {% include 'comment.html' with comments=comment.comments.all pai_comment=comment %}
+
       </div>
     {% endfor %}
   </section>

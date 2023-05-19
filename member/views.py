@@ -9,6 +9,13 @@ def profile(request, id):
     if request.method == 'GET':
         member = get_object_or_404(User, id=id)
         posts = Post.objects.filter(creator=member.id)
+
+        post = Post.objects.first()
+        print(post)
+        print(post.comments.first())
+        com = Comment.objects.first()
+        print(com.comments.exists())
+
         return render(request, 'pages/profile.html', {'member': member, 'posts': posts})
     
 @login_required(login_url='login')
@@ -26,7 +33,8 @@ def post(request):
     
 def post_viewer(request, id):
     post = get_object_or_404(Post, id=id)
-    return render(request, 'pages/post_viewer.html', {'post':post})
+    comments = post.comments.all()
+    return render(request, 'pages/post_viewer.html', {'post':post, 'comments':comments})
 
 @login_required(login_url='/login')
 def vote(request, id):
@@ -61,6 +69,7 @@ def comment_post(request, id):
 
     comment.save()
     post.comments.add(comment.id)
+    post.save()
     return redirect(f'/member/post/{post.id}')
 
 @login_required(login_url='/login')
@@ -75,7 +84,8 @@ def comment_comment(request, id):
 
     new_comment.save()
     comment.comments.add(new_comment.id)
-    post = Post.objects.get(comments=comment)
-    return redirect(f'/member/post/{post.id}')
+    comment.save()
+    # post = Post.objects.get(comments=comment)
+    return redirect(f'/member/post/1')
 
     
