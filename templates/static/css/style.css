@@ -41,7 +41,7 @@ html, body {
 
 .ligth-mode {
 	min-height: 80vh;
-	background-color: #fff;
+	background-color: #dddcdc;
 	color: black;
 }
 .text-white {
@@ -50,9 +50,13 @@ html, body {
 
 .ligth-mode .news,
 .ligth-mode .news a,
-.ligth-mode .btn,
-.ligth-mode .text-white{
+.ligth-mode .text-white,
+.ligth-mode h3,
+.light-mode a.fa{
 	color: #000;
+}
+.light-mode .btn-dark{
+	background-color: #000;
 }
 
 .container {
