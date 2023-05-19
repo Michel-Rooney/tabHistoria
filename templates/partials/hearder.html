@@ -19,10 +19,10 @@
             <i class="bi bi-person-square" id="change-mode"></i> {{user.username}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="memberDropdown" style="background-color: #161B22;">
-            <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="bi bi-house-door"></i> {{user.username}}</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="bi bi-house-door"></i> {{user.username}}</a></li>
             <li><hr style="height: 1px; color: white;"></li>
             <li><a class="dropdown-item" href="{% url 'post' %}">Publicar novo conteúdo</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile' %}">Meus conteúdos</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Meus conteúdos</a></li>
             <li><a class="dropdown-item" href="#">Editar perfil</a></li>
             <li><hr style="height: 1px; color: white;"></li>
             <div class="d-flex  align-items-center justify-content-center">

@@ -7,8 +7,10 @@
 <main class="dark-mode" id="main">
   <section class="container text-white pt-4">
     <div class="d-flex align-items-center justify-content-between">
-      <h1 >{{user.username}}</h1>
-      <a class="btn btn-dark btn-sm" href="{% url 'post' %}"><i class="bi bi-plus-lg"> Publicar conteúdo</i></a>
+      <h1 >{{member.username}}</h1>
+      {% if user.id == member.id %}
+        <a class="btn btn-dark btn-sm" href="{% url 'post' %}"><i class="bi bi-plus-lg"> Publicar conteúdo</i></a>
+      {% endif %}
     </div>
     <hr>
     <div class="d-flex flex-column align-items-center pb-4">

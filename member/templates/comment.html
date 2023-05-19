@@ -1,0 +1,18 @@
+{% for comment in comments %}
+  <div style="background-color: black;">
+    <p class="text-white">{{ comment.creator }} {{ comment.content }}</p>
+    <section class="container text-white pt-4 border">
+      <form action="{% url 'comment_comment' comment.id %}" method="post">{% csrf_token %}
+        <div class="form-group py-2">
+          <button class="btn btn-dark btn-sm" value="Publicar conteúdo">Responder</button>
+        </div>
+        <textarea name="text-content" id="mytextarea2"></textarea>
+        <div class="d-flex justify-content-end py-4 gap-3">
+          <input type="submit" class="btn btn-dark" style="background-color: transparent;" value="Cancelar">
+          <input type="submit" class="btn btn-success" value="Responder">
+        </div>
+      </form>
+    </section>
+    {% include 'comment.html' with comments=comment.comments.all %}
+  </div>
+{% endfor %}

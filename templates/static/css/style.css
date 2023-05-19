@@ -28,6 +28,7 @@ html, body {
 
 .dark-mode {
 	min-height: 80vh;
+	padding-bottom: 30px;
 	background-color: #0D1117;
 }
 
@@ -43,6 +44,7 @@ html, body {
 	min-height: 80vh;
 	background-color: #dddcdc;
 	color: black;
+	padding-bottom: 30px;
 }
 .text-white {
 	color: white ;
@@ -52,9 +54,19 @@ html, body {
 .ligth-mode .news a,
 .ligth-mode .text-white,
 .ligth-mode h3,
+.light-mode .container,
 .light-mode a.fa{
 	color: #000;
 }
+
+.dark-mode .container{
+	color: #fff;
+}
+
+.t{
+	font-size: 40px;
+}
+
 .light-mode .btn-dark{
 	background-color: #000;
 }
@@ -118,6 +130,33 @@ body {
 	width: 900px;
 }
 
+.creator{
+	font-size: 13px;
+	max-width: fit-content;
+	padding: 3px;
+	margin: 3px;
+	border-radius: 5px;
+	color: #1174f5;
+	background-color: #0d4fb854;
+}
+
+.date {
+	margin: 3px;
+	padding: 3px;
+	font-size: 13px;
+	font-style: italic;
+	color: #6E7681;
+}
+
+.likes {
+	font-size: 20px;
+	display: flex;
+	justify-content: end;
+}
+
+.likes .bi {
+	padding: 5px;
+}
 @media (max-width: 600px) {
 	ul.nav {
 		font-size: 10px;

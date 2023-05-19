@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Post
+from django.contrib.auth.models import User
+from .models import Post, Comment
 
 
 @login_required(login_url='login')
-def profile(request):
+def profile(request, id):
     if request.method == 'GET':
-        posts = Post.objects.filter(creator=request.user.id)
-        print(posts)
-        return render(request, 'pages/profile.html', {'posts': posts})
+        member = get_object_or_404(User, id=id)
+        posts = Post.objects.filter(creator=member.id)
+        return render(request, 'pages/profile.html', {'member': member, 'posts': posts})
     
 @login_required(login_url='login')
 def post(request):
@@ -24,5 +25,57 @@ def post(request):
         return redirect(f'/member/profile')
     
 def post_viewer(request, id):
-    post = Post.objects.get(id=id)
+    post = get_object_or_404(Post, id=id)
     return render(request, 'pages/post_viewer.html', {'post':post})
+
+@login_required(login_url='/login')
+def vote(request, id):
+    vote = request.POST.get('vote')
+    post = get_object_or_404(Post, id=id)
+    user_liked = post.users_liked.filter(id=request.user.id).exists()
+    user_disliked = post.users_disliked.filter(id=request.user.id).exists()
+    
+
+    if vote == 'up' and not user_liked:
+        post.users_liked.add(request.user.id)
+        post.users_disliked.remove(request.user.id)
+        post.likes += 1
+
+    if vote == 'down' and not user_disliked:
+        post.users_disliked.add(request.user.id)
+        post.users_liked.remove(request.user.id)
+        post.likes -= 1
+
+    post.save()
+    return redirect(f'/member/post/{post.id}/')
+    
+@login_required(login_url='/login')
+def comment_post(request, id):
+    content = request.POST.get('text-content')
+    post = get_object_or_404(Post, id=id)
+
+    comment = Comment(
+        creator=request.user,
+        content=content
+    )
+
+    comment.save()
+    post.comments.add(comment.id)
+    return redirect(f'/member/post/{post.id}')
+
+@login_required(login_url='/login')
+def comment_comment(request, id):
+    content = request.POST.get('text-content')
+    comment = get_object_or_404(Comment, id=id)
+
+    new_comment = Comment(
+        creator=request.user,
+        content=content
+    )
+
+    new_comment.save()
+    comment.comments.add(new_comment.id)
+    post = Post.objects.get(comments=comment)
+    return redirect(f'/member/post/{post.id}')
+
+    

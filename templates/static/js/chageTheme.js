@@ -22,9 +22,13 @@ btnMode.addEventListener('click', ()=> {
 btnChangeMoon.addEventListener('click', ()=> {
     main.classList.remove('ligth-mode')
     main.classList.add('dark-mode')
+    btnMode.classList.remove('bi-brightness-high')
+    btnMode.classList.add('bi-moon-stars')
 })
 
 btnChangeSun.addEventListener('click', ()=> {
     main.classList.remove('dark-mode')
     main.classList.add('ligth-mode')
+    btnMode.classList.remove('bi-moon-stars')  
+    btnMode.classList.add('bi-brightness-high')
 })
