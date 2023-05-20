@@ -1,6 +1,8 @@
 const btnResponse = document.querySelector('.response')
 const textArea = document.querySelector('.form')
 const cancel = document.querySelector('.cancel')
+
+
 btnResponse.addEventListener('click', ()=> {
     console.log('clicou carai')
     if ( textArea.classList.contains('d-none') ) {

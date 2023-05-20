@@ -1,14 +1,21 @@
 {% for comment in comments %}
-  <div style="background-color: black;">
-    <p class="text-white">{{ comment.creator }} {{ comment.content }}</p>
-    <p>Pai comment: {{pai_comment.id}}</p>
-    <p>Comment: {{comment.id}}</p>
+  <div class="gap-comment" style="background-color: black;">
+    <div class="title-header">
+      <div class="d-flex">
+        <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ comment.creator }}</a></p>
+        <p class="date">{{comment.creation_date}}</p>
+      </div>
+    </div>
+    <p class="text-white">{{ comment.content }}</p> 
+    <!-- <p>Pai comment: {{pai_comment.id}}</p>
+    <p>Comment: {{comment.id}}</p> -->
     <section class="container text-white pt-4 border">
-      <form action="{% url 'comment_comment' comment.id %}" method="post">{% csrf_token %}
-        <div class="form-group py-2">
-          <button class="btn btn-dark btn-sm" value="Publicar conteúdo">Responder</button>
-        </div>
-        <textarea name="text-content" id="mytextarea2"></textarea>
+      <div class="form-group py-2">
+        <button class="btn btn-dark btn-sm" value="Publicar conteúdo">Responder</button>
+      </div>
+      <form class="form" action="{% url 'comment_comment' comment.id %}"style="max-height: 500px;" method="post">{% csrf_token %}
+        
+        <textarea name="text-content" id="mytextarea2" style="height: 100px;"></textarea>
         <div class="d-flex justify-content-end py-4 gap-3">
           <input type="submit" class="btn btn-dark" style="background-color: transparent;" value="Cancelar">
           <input type="submit" class="btn btn-success" value="Responder">

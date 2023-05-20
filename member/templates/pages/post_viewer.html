@@ -39,7 +39,7 @@
       <button class="btn btn-dark btn-sm response" value="Publicar conteúdo">Responder</button>
     </div>
 
-    <form class="form d-none" action="{% url 'comment_post' post.id %}" method="post">{% csrf_token %}
+    <form class="form" action="{% url 'comment_post' post.id %}" method="post">{% csrf_token %}
       <textarea name="text-content" id="mytextarea"></textarea>
       <div class="d-flex justify-content-end py-4 gap-3">
         <input class="btn btn-dark cancel" style="background-color: transparent;" value="Cancelar">
@@ -52,13 +52,19 @@
   <section class="container text-white pt-4">
     {% for comment in comments %}
       <div style="background-color: black;" class="my-4">
-        <p class="text-white">{{ comment.creator }} {{ comment.content }}</p>
+        <div class="title-header">
+          <div class="d-flex">
+            <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ comment.creator }}</a></p>
+            <p class="date">{{comment.creation_date}}</p>
+          </div>
+        </div>
+        <p class="text-white">{{ comment.content }}</p>
         <section class="container text-white pt-4 border">
           <div class="form-group py-2">
             <button class="btn btn-dark btn-sm response" value="Publicar conteúdo">Responder</button>
           </div>
 
-          <form class="form d-none" action="{% url 'comment_comment' comment.id %}" method="post">{% csrf_token %}
+          <form class="form" action="{% url 'comment_comment' comment.id %}" method="post">{% csrf_token %}
             
             <textarea name="text-content" id="mytextarea2"></textarea>
             <div class="d-flex justify-content-end py-4 gap-3">

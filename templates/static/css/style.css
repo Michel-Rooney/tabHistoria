@@ -157,6 +157,10 @@ body {
 .likes .bi {
 	padding: 5px;
 }
+
+.gap-comment{
+	margin-left: 50px;
+}
 @media (max-width: 600px) {
 	ul.nav {
 		font-size: 10px;
