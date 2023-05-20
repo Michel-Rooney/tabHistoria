@@ -3,11 +3,24 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from member.models import Post
 
-
+from django.db.models.functions import TruncDate
+from django.core.paginator import Paginator
 
 def home(request):
-    posts = Post.objects.all()
-    return render(request, 'pages/index.html', {'posts': posts})
+    if request.method == 'GET':
+        category = request.GET.get('category')
+
+        print(request.build_absolute_uri())
+
+        if category == 'recent':
+            posts = Post.objects.all().order_by('creation_date')
+        else:
+            posts = Post.objects.annotate(date=TruncDate('creation_date')).order_by('date', '-likes')
+
+        paginator = Paginator(posts, 3)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
+        return render(request, 'pages/index.html', {'posts': posts, 'category':category})
 
 def register(request):
     if request.method == 'GET':

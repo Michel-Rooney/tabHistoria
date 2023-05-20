@@ -2,8 +2,10 @@
   <nav class="navbar-nav">
     <ul class="nav">
       <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">TabHistoria</a></li>
-      <li class="nav-item"><a class="nav-link" href="">Relevantes</a></li>
-      <li class="nav-item"><a class="nav-link" href="">Recentes</a></a></li>
+      <form action="{% url 'home' %}" method="GET" >
+        <button type="submit" name="category" value="relevant" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Relevantes</a></li></button>
+        <button type="submit" name="category" value="recent" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Recentes</a></a></li></button>
+      </form>
     </ul>
   </nav>
   <nav class="navbar-nav">

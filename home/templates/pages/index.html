@@ -8,7 +8,7 @@
   <section class="container text-white pt-4">
     {% for post in posts %}
     <div class="news pt-1">
-      <h2 class="fs-6">{{ post.id }}. <a href="{% url 'post_viewer' post.id %}">{{post.title}}</a></h2>
+      <h2 class="fs-6">{{ forloop.counter }}. <a href="{% url 'post_viewer' post.id %}">{{post.title}}</a></h2>
       <div class="more d-flex align-items-center justify-content-start gap-2">
         <p>{{ post.likes }} likes</p>
         <p>-</p>
@@ -21,8 +21,15 @@
   </section>
   <section class="container d-flex align-items-center justify-content-center px-1">
     <div class="pass">
-      <button class="btn btn-link">&lt;&lt; Anterior</button>
-      <button class="btn btn-link">Proximo &gt;&gt;</button>
+      {% if posts.has_previous %}
+        <a href="?category={{category}}&page={{posts.previous_page_number}}" class="btn btn-link">&lt;&lt; Anterior</a>
+      {% endif %}
+      <span class="current">
+        {{ posts.number }} de {{ posts.paginator.num_pages }}
+      </span>
+      {% if posts.has_next %}
+        <a href="?category={{category}}&page={{posts.next_page_number}}" class="btn btn-link">Proximo &gt;&gt;</a>
+      {% endif %}
     </div>
   </section>
 </main>
