@@ -11,6 +11,9 @@ class Comment(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
+    def list_comments(self):
+        return self.comments.all()[1:]
+
     def __str__(self) -> str:
         return self.content[0:50]
 

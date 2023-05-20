@@ -17,7 +17,7 @@ def home(request):
         else:
             posts = Post.objects.annotate(date=TruncDate('creation_date')).order_by('date', '-likes')
 
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(posts, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
         return render(request, 'pages/index.html', {'posts': posts, 'category':category})

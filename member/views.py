@@ -10,12 +10,6 @@ def profile(request, id):
         member = get_object_or_404(User, id=id)
         posts = Post.objects.filter(creator=member.id)
 
-        post = Post.objects.first()
-        print(post)
-        print(post.comments.first())
-        com = Comment.objects.first()
-        print(com.comments.exists())
-
         return render(request, 'pages/profile.html', {'member': member, 'posts': posts})
     
 @login_required(login_url='login')
@@ -29,7 +23,7 @@ def post(request):
         post = Post(title=title, creator=request.user, content=text_content)
         post.save()
 
-        return redirect(f'/member/profile')
+        return redirect(f'/member/profile/{request.user.id}')
     
 def post_viewer(request, id):
     post = get_object_or_404(Post, id=id)
