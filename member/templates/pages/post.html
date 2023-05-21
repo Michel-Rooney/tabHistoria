@@ -4,16 +4,6 @@
 {% block title %}Post{% endblock %}
 {% block head %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  <style>
-    .editor-toolbar a {
-	    color: #ffffff!important;
-    }
-    /* .CodeMirror {
-      background-color: black;
-      color: white;
-      caret-color: white;
-    } */
-  </style>
 {% endblock %}
 
 {% block body %}
@@ -35,29 +25,9 @@
 
 {% block script %}
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-<script>
+<script> 
   var simplemde = new SimpleMDE({
-    element: document.getElementById("mytextarea"),
-    spellChecker: false,
-    previewRender: function(plainText) {
-      return marked(plainText, {sanitize: true});
-    },
-    toolbar: [
-      "bold", "italic", "heading", "|",
-      "quote", "unordered-list", "ordered-list", "|",
-      "link", "image", "|",
-      {
-        name: "preview",
-        action: function(editor) {
-          var previewWindow = window.open("", "_blank", "width=800, height=600, scrollbars=yes");
-          var previewContent = marked(editor.value(), {sanitize: true});
-          previewWindow.document.write(previewContent);
-          previewWindow.document.close();
-        },
-        className: "fa fa-eye no-disable",
-        title: "Preview"
-      }
-    ]
+    element: document.getElementById('mytextarea')
   });
 </script>
 {% endblock %}

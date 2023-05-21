@@ -13,7 +13,7 @@ def home(request):
         print(request.build_absolute_uri())
 
         if category == 'recent':
-            posts = Post.objects.all().order_by('creation_date')
+            posts = Post.objects.all().order_by('-creation_date')
         else:
             posts = Post.objects.annotate(date=TruncDate('creation_date')).order_by('date', '-likes')
 
@@ -58,7 +58,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect('/login')
 
 
 

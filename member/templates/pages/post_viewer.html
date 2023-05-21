@@ -4,21 +4,6 @@
 {% block title %}{{post.title}}{% endblock %}
 {% block head %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  <style>   
-    .editor-preview, .editor-preview-side {
-      color: black;
-    }
-    
-    .editor-toolbar,
-    .editor-toolbar:hover {
-      background: #fff;
-      opacity: 100;
-    }
-
-    .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
-      background: transparent;
-    }
-    </style>
 {% endblock %}
 
 {% block body %}
@@ -58,7 +43,7 @@
     </form>
   </section>
 
-  {% include 'partials/comment.html' with teste=True %}
+  {% include 'partials/comment.html' with first_listing=True %}
 
 </main>
 {% endblock %}

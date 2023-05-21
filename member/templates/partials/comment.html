@@ -29,8 +29,8 @@
         <input type="submit" class="btn btn-success" value="Responder">
       </div>  
     </form>
-    {% if teste %}
-      {% include 'partials/comment.html' with comments=comment.comments.all teste=False %}  
+    {% if first_listing %}
+      {% include 'partials/comment.html' with comments=comment.comments.all first_listing=False %}  
     {% else %}
       {% include 'partials/comment.html' with comments=comment.list_comments %}  
     {% endif %}

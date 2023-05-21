@@ -171,3 +171,19 @@ body {
 		padding: 0 10px;
 	}
 }
+
+
+/* Markdown Editor */
+.editor-preview, .editor-preview-side {
+	color: black;
+}
+
+.editor-toolbar,
+.editor-toolbar:hover {
+	background: #fff;
+	opacity: 100 !important;
+}
+
+.CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
+	background: transparent !important;
+}
