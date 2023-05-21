@@ -33,23 +33,30 @@ def post_viewer(request, id):
 @login_required(login_url='/login')
 def vote(request, id):
     vote = request.POST.get('vote')
-    post = get_object_or_404(Post, id=id)
-    user_liked = post.users_liked.filter(id=request.user.id).exists()
-    user_disliked = post.users_disliked.filter(id=request.user.id).exists()
+    type = request.POST.get('type')
+    id_post = request.POST.get('id-post')
+    
+    if type == 'comment':
+        entity = get_object_or_404(Comment, id=id)
+    else:
+        entity = get_object_or_404(Post, id=id)
+        
+    user_liked = entity.users_liked.filter(id=request.user.id).exists()
+    user_disliked = entity.users_disliked.filter(id=request.user.id).exists()
     
 
     if vote == 'up' and not user_liked:
-        post.users_liked.add(request.user.id)
-        post.users_disliked.remove(request.user.id)
-        post.likes += 1
+        entity.users_liked.add(request.user.id)
+        entity.users_disliked.remove(request.user.id)
+        entity.likes += 1
 
     if vote == 'down' and not user_disliked:
-        post.users_disliked.add(request.user.id)
-        post.users_liked.remove(request.user.id)
-        post.likes -= 1
+        entity.users_disliked.add(request.user.id)
+        entity.users_liked.remove(request.user.id)
+        entity.likes -= 1
 
-    post.save()
-    return redirect(f'/member/post/{post.id}/')
+    entity.save()
+    return redirect(f'/member/post/{id_post}/')
     
 @login_required(login_url='/login')
 def comment_post(request, id):
@@ -79,7 +86,7 @@ def comment_comment(request, id):
     new_comment.save()
     comment.comments.add(new_comment.id)
     comment.save()
-    # post = Post.objects.get(comments=comment)
-    return redirect(f'/member/post/1')
+    post = Post.objects.get(comments=comment)
+    return redirect(f'/member/post/{post.id}')
 
     

@@ -1,9 +1,11 @@
 {% for comment in comments %}
 <section class="container p-4 d-flex">
   <aside class="d-flex flex-column justify-content-start align-items-center p-2 m-4">
-    <form action="{% url 'vote' post.id %}" method="POST" class="d-flex flex-column justify-content-start align-items-center">{% csrf_token %}
+    <form action="{% url 'vote' comment.id %}" method="POST" class="d-flex flex-column justify-content-start align-items-center">{% csrf_token %}
+      <input type="hidden" name="type" value="comment">
+      <input type="hidden" name="id-post" value="{{post.id}}">
       <button type="submit" name="vote" value="up" style="border: none; background: none; color: inherit;" class="bi bi-chevron-up"></button>
-      <p style="color: #1174f5; font-size: 14px;" class="m-0">{{post.likes}}</p>
+      <p style="color: #1174f5; font-size: 14px;" class="m-0">{{comment.likes}}</p>
       <button type="submit" name="vote" value="down" style="border: none; background: none; color: inherit;" class="bi bi-chevron-down"></button>
     </form>
     <p style="border-right: 1px dotted rgba(255, 255, 255, 0.2); min-height: 100%;"></p>
@@ -27,7 +29,11 @@
         <input type="submit" class="btn btn-success" value="Responder">
       </div>  
     </form>
-    {% include 'partials/comment.html' with comments=comment.list_comments %}
+    {% if teste %}
+      {% include 'partials/comment.html' with comments=comment.comments.all teste=False %}  
+    {% else %}
+      {% include 'partials/comment.html' with comments=comment.list_comments %}  
+    {% endif %}
   </div>
 </section>
 {% endfor %}

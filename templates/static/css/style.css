@@ -46,6 +46,7 @@ html, body {
 	color: black;
 	padding-bottom: 30px;
 }
+
 .text-white {
 	color: white ;
 }
@@ -117,14 +118,6 @@ body {
   box-shadow: 0 0 0 0.1rem white;
 }
 
-.editor-toolbar a {
-	color: #ffffff!important;
-}
-
-#mytextarea {
-	position: fixed;
-	color: #fff;
-}
 
 .public img {
 	width: 900px;
@@ -161,6 +154,7 @@ body {
 .gap-comment{
 	margin-left: 50px;
 }
+
 @media (max-width: 600px) {
 	ul.nav {
 		font-size: 10px;

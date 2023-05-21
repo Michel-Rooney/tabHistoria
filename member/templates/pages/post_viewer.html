@@ -1,15 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load comment_filters %}
 
 {% block title %}{{post.title}}{% endblock %}
 {% block head %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  <style>
-    .editor-toolbar a {
-	    color: #ffffff!important;
+  <style>   
+    .editor-preview, .editor-preview-side {
+      color: black;
     }
-  </style>
+    
+    .editor-toolbar,
+    .editor-toolbar:hover {
+      background: #fff;
+      opacity: 100;
+    }
+
+    .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
+      background: transparent;
+    }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -18,23 +27,24 @@
   <section class="container pt-4 d-flex">
     <aside class="d-flex flex-column justify-content-start align-items-center p-2 m-4">
       <form action="{% url 'vote' post.id %}" method="POST" class="d-flex flex-column justify-content-start align-items-center">{% csrf_token %}
+        <input type="hidden" name="type" value="post">
+        <input type="hidden" name="id-post" value="{{post.id}}">
         <button type="submit" name="vote" value="up" style="border: none; background: none; color: inherit;" class="bi bi-chevron-up"></button>
         <p style="color: #1174f5; font-size: 14px;" class="m-0">{{post.likes}}</p>
         <button type="submit" name="vote" value="down" style="border: none; background: none; color: inherit;" class="bi bi-chevron-down"></button>
       </form>
-      <p style="border-right: 1px dotted rgba(255, 255, 255, 0.2); min-height: 90%;"></p>
-    </aside>  
-      <div class="title-header">
-        <div class="d-flex">
-          <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ post.creator }}</a></p>
-          <p class="date">{{post.creation_date}}</p>
-        </div>
-        <h3 class="t">{{ post.title }}</h3>
-        <p class="article" id="show"></p>
+      <p style="border-right: 1px dotted rgba(255, 255, 255, 0.2); min-height: 90%;" class="m-0"></p>
+    </aside>
+    <div class="title-header">
+      <div class="d-flex">
+        <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ post.creator }}</a></p>
+        <p class="date">{{post.creation_date}}</p>
       </div>
+      <h3 class="t">{{ post.title }}</h3>
+      <p class="article" id="show"></p>
+    </div>
   </section>
-  <hr>
-  <section class="container text-white pt-4 border">
+  <section class="container text-white pt-4">
     <div class="form-group py-2">
       <button class="btn btn-dark btn-sm response" value="Publicar conteúdo">Responder</button>
     </div>
@@ -48,57 +58,14 @@
     </form>
   </section>
 
-
-
-
-
-
-{% for comment in comments %}
-<section class="container p-4 d-flex">
-  <aside class="d-flex flex-column justify-content-start align-items-center p-2 m-4">
-    <form action="{% url 'vote' post.id %}" method="POST" class="d-flex flex-column justify-content-start align-items-center">{% csrf_token %}
-      <button type="submit" name="vote" value="up" style="border: none; background: none; color: inherit;" class="bi bi-chevron-up"></button>
-      <p style="color: #1174f5; font-size: 14px;" class="m-0">{{post.likes}}</p>
-      <button type="submit" name="vote" value="down" style="border: none; background: none; color: inherit;" class="bi bi-chevron-down"></button>
-    </form>
-    <p style="border-right: 1px dotted rgba(255, 255, 255, 0.2); min-height: 100%;"></p>
-  </aside>
-  <div>
-    <div class="title-header">
-      <div class="d-flex">
-        <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ post.creator }}</a></p>
-        <p class="date">{{comment.creation_date}}</p>
-      </div>
-      <p class="text-white">{{ comment.content }}</p>
-    </div>
-    
-    <div class="form-group py-2">
-      <button class="btn btn-dark btn-sm response" value="Publicar conteúdo">Responder</button>
-    </div>
-    <form class="form d-none" action="{% url 'comment_comment' comment.id %}" method="post">{% csrf_token %}
-      <textarea name="text-content" id="mytextarea2"></textarea>
-      <div class="d-flex justify-content-end py-4 gap-3">
-        <input class="btn btn-dark cancel" style="background-color: transparent;" value="Cancelar">
-        <input type="submit" class="btn btn-success" value="Responder">
-      </div>  
-    </form>
-    {% include 'partials/comment.html' with comments=comment.comments.all %}
-  </div>
-</section>
-{% endfor %}
-
-
-
-
-
-
+  {% include 'partials/comment.html' with teste=True %}
 
 </main>
 {% endblock %}
 
 {% block script %}
 <script type="text/javascript" src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>
   const htmlContent = document.createElement("div");
   var converter = new showdown.Converter(),
@@ -109,29 +76,8 @@
 
   const elements = document.getElementsByName('text-content')  
   for (let i = 0; i < elements.length; i++) {
-  const element = elements[i];
-  var simplemde = new SimpleMDE({
-    element: element,
-    spellChecker: false,
-    previewRender: function(plainText) {
-      return marked(plainText, {sanitize: true});
-    },
-    toolbar: [
-      "bold", "italic", "heading", "|",
-      "quote", "unordered-list", "ordered-list", "|",
-      "link", "image", "|",
-      {
-        name: "preview",
-        action: function(editor) {
-          var previewWindow = window.open("", "_blank", "width=800, height=600, scrollbars=yes");
-          var previewContent = marked(editor.value(), {sanitize: true});
-          previewWindow.document.write(previewContent);
-          previewWindow.document.close();
-        },
-        className: "fa fa-eye no-disable",
-        title: "Preview"
-      }
-    ]
+    var simplemde = new SimpleMDE({
+      element: elements[i]
   })};
 </script>
 {% endblock %}
