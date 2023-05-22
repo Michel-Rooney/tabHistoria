@@ -8,7 +8,6 @@
 
 {% block body %}
 <main class="dark-mode" id="main">
-  <p id="hidden" hidden>{{post.content}}</p>
   <section class="container pt-4 d-flex">
     <aside class="d-flex flex-column justify-content-start align-items-center p-2 m-4">
       <form action="{% url 'vote' post.id %}" method="POST" class="d-flex flex-column justify-content-start align-items-center">{% csrf_token %}
@@ -20,20 +19,20 @@
       </form>
       <p style="border-right: 1px dotted rgba(255, 255, 255, 0.2); min-height: 90%;" class="m-0"></p>
     </aside>
-    <div class="title-header">
+    <div class="title-header" style="width: 100%;">
       <div class="d-flex">
         <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ post.creator }}</a></p>
         <p class="date">{{post.creation_date}}</p>
       </div>
       <h3 class="t">{{ post.title }}</h3>
-      <p class="article" id="show"></p>
+      <div id="hidden" hidden>{{post.content}}</div>
+      <div class="article" id="show"></div>
     </div>
   </section>
-  <section class="container text-white pt-4">
+  <section class="container text-white pt-4" style="width: 100%;">
     <div class="form-group py-2">
       <button class="btn btn-dark btn-sm response" value="Publicar conteúdo">Responder</button>
     </div>
-
     <form class="form d-none" action="{% url 'comment_post' post.id %}" method="post">{% csrf_token %}
       <textarea name="text-content" id="mytextarea"></textarea>
       <div class="d-flex justify-content-end py-4 gap-3"></div>
@@ -55,7 +54,8 @@
   const htmlContent = document.createElement("div");
   var converter = new showdown.Converter(),
   text = document.getElementById('hidden').innerHTML;
-  htmlContent.innerHTML = converter.makeHtml(text);
+  text = text.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+  htmlContent.innerHTML = converter.makeHtml(text)
   document.getElementById('show').appendChild(htmlContent)
 
 

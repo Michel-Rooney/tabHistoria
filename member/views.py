@@ -8,7 +8,7 @@ from .models import Post, Comment
 def profile(request, id):
     if request.method == 'GET':
         member = get_object_or_404(User, id=id)
-        posts = Post.objects.filter(creator=member.id)
+        posts = Post.objects.filter(creator=member.id).order_by('-creation_date')
 
         return render(request, 'pages/profile.html', {'member': member, 'posts': posts})
     
