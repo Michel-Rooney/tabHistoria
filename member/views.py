@@ -59,34 +59,26 @@ def vote(request, id):
     return redirect(f'/member/post/{id_post}/')
     
 @login_required(login_url='/login')
-def comment_post(request, id):
+def comment(request, id):
     content = request.POST.get('text-content')
-    post = get_object_or_404(Post, id=id)
+    type = request.POST.get('type')
+    id_post = request.POST.get('id-post')
 
-    comment = Comment(
-        creator=request.user,
-        content=content
-    )
+    if type == 'post':
+        entity = get_object_or_404(Post, id=id)
+    else:
+        entity = get_object_or_404(Comment, id=id)
 
-    comment.save()
-    post.comments.add(comment.id)
-    post.save()
-    return redirect(f'/member/post/{post.id}')
-
-@login_required(login_url='/login')
-def comment_comment(request, id):
-    content = request.POST.get('text-content')
-    comment = get_object_or_404(Comment, id=id)
-
-    new_comment = Comment(
-        creator=request.user,
-        content=content
+    new_comment = Comment (
+        creator = request.user,
+        content = content
     )
 
     new_comment.save()
-    comment.comments.add(new_comment.id)
-    comment.save()
-    post = Post.objects.get(comments=comment)
-    return redirect(f'/member/post/{post.id}')
+    entity.comments.add(new_comment.id)
+    entity.save()
+    return redirect(f'/member/post/{id_post}')
 
-    
+def render_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request, 'partials/render_post.html', {'post': post})

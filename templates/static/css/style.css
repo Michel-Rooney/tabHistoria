@@ -86,11 +86,11 @@ a{
 	text-decoration: none;
 }
 
-h2 {
+.weight {
 	font-weight: 300;
 }
 
-h2 a:hover {
+.weight a:hover {
 	text-decoration: underline;
 }
 
