@@ -2,14 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post, Comment
+from django.contrib import messages
 
 
 @login_required(login_url='login')
 def profile(request, id):
     if request.method == 'GET':
         member = get_object_or_404(User, id=id)
-        posts = Post.objects.filter(creator=member.id).order_by('-creation_date')
 
+        if request.user.id != member.id:
+            return redirect('/')
+
+        posts = Post.objects.filter(creator=member.id).order_by('-creation_date')
         return render(request, 'pages/profile.html', {'member': member, 'posts': posts})
     
 @login_required(login_url='login')
@@ -82,3 +86,38 @@ def comment(request, id):
 def render_post(request, id):
     post = get_object_or_404(Post, id=id)
     return render(request, 'partials/render_post.html', {'post': post})
+
+@login_required(login_url='/login')
+def delete_post(request, pk_post, pk_member):
+    member = get_object_or_404(User, pk=pk_member)
+
+    if request.user.id != member.id:
+        messages.error(request, 'A ação de deletar um post de outro usuário não é permitida para o usuário atual.')
+        return redirect(f'/member/profile/{member.id}/')
+
+    post = get_object_or_404(Post, pk=pk_post)
+    post.delete()
+    messages.success(request, 'Post excluído com sucesso.')
+    return redirect(f'/member/profile/{member.id}/')
+
+@login_required(login_url='/login')
+def update_post(request, pk_post, pk_member):
+    member = get_object_or_404(User, pk=pk_member)
+    post = get_object_or_404(Post, pk=pk_post)
+
+    if request.user.id != member.id:
+        messages.error(request, 'A ação de atualizar um post de outro usuário não é permitida para o usuário atual.')
+        return redirect(f'/member/profile/{member.id}/')
+    
+    elif request.method == 'GET':
+        return render(request, 'pages/update_post.html', {'post': post, 'member': member})
+    
+    elif request.method == 'POST':
+        title = request.POST.get('title')
+        text_content = request.POST.get('text-content')
+
+        post.title = title
+        post.content = text_content
+        post.save()
+
+        return redirect(f'/member/profile/{member.id}')

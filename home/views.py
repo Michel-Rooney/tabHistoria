@@ -59,10 +59,3 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/login')
-
-
-
-
-# TODO: Fazer as mensagens de respostas
-# TODO: Fazer os regex
-# TODO: Fazer os redirecionamentos
