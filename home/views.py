@@ -2,15 +2,12 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
 from member.models import Post
-
 from django.db.models.functions import TruncDate
 from django.core.paginator import Paginator
 
 def home(request):
     if request.method == 'GET':
         category = request.GET.get('category')
-
-        print(request.build_absolute_uri())
 
         if category == 'recent':
             posts = Post.objects.all().order_by('-creation_date')

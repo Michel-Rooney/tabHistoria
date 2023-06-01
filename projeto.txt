@@ -56,5 +56,7 @@ Compo de escrita (
 # TODO: Fazer os regex
 # TODO: Fazer os redirecionamentos
 # TODO: Refatorar o código
-# TODO: Paginação dos post no Meus conteudos
 # TODO: Concertar a o redirecionamento do criador
+# TODO: Ajeitar a o numero da listagem dos post (
+    quando muda de pagina a contagem renicia
+)
