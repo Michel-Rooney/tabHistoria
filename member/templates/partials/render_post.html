@@ -11,10 +11,6 @@
 </head>
 <body style="width: 100%; min-height: 100vh; color: white !important; background: #0D1117 !important;">
   <div class="title-header">
-    <div class="d-flex p-0">
-      <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ post.creator }}</a></p>
-      <p class="date">{{post.creation_date}}</p>
-    </div>
     <h3 class="title">{{ post.title }}</h3>
     <div id="hidden" hidden>{{post.content}}</div>
     <div class="article" id="show"></div>

@@ -19,19 +19,31 @@
       <div class="hidden" hidden>{{comment.content}}</div>
       <div class="article show"></div>
     </div>
-    
-    <div class="form-group py-2">
-      <button class="btn btn-dark btn-sm response" value="Publicar conteúdo">Responder</button>
+    <section class="container text-white mt-3">
+      <button type="button" value="Publicar conteúdo" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#myModal{{comment.id}}">Responder</button>
+    </section>
+    <div class="modal fade" id="myModal{{comment.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: #212529;">Responder o Comentário</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{% url 'comment' comment.id %}" method="post">{% csrf_token %}
+            <div class="modal-body">
+              <input type="hidden" name="type" value="comment">
+              <input type="hidden" name="id-post" value="{{post.id}}">
+              <textarea name="text-content" id="mytextarea2"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-success">Responder</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <form class="form d-none" action="{% url 'comment' comment.id %}" method="post">{% csrf_token %}
-      <input type="hidden" name="type" value="comment">
-      <input type="hidden" name="id-post" value="{{post.id}}">
-      <textarea name="text-content" id="mytextarea2"></textarea>
-      <div class="d-flex justify-content-end py-4 gap-3">
-        <input class="btn btn-dark cancel" style="background-color: transparent;" value="Cancelar">
-        <input type="submit" class="btn btn-success" value="Responder">
-      </div>  
-    </form>
+    
     {% if first_listing %}
       {% include 'partials/comment.html' with comments=comment.comments.all first_listing=False %}  
     {% else %}

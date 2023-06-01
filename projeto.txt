@@ -55,6 +55,6 @@ Compo de escrita (
 # TODO: Fazer as mensagens de respostas
 # TODO: Fazer os regex
 # TODO: Fazer os redirecionamentos
-# TODO: Comentarios em Modal
 # TODO: Refatorar o código
 # TODO: Paginação dos post no Meus conteudos
+# TODO: Concertar a o redirecionamento do criador
