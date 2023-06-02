@@ -12,11 +12,11 @@ def profile(request, id):
         member = get_object_or_404(User, id=id)
         posts = Post.objects.filter(creator=member.id).order_by('-creation_date')
 
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(posts, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
         counter = paginator.page_range.start + posts.number - 1
-        return render(request, 'pages/profile.html', {'member': member, 'posts': posts, 'counter':counter})
+        return render(request, 'pages/profile.html', {'member': member, 'posts': posts, 'counter':counter, 'page_quantity':3})
     
 @login_required(login_url='login')
 def post(request):

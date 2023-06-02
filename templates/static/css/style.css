@@ -5,12 +5,12 @@ html, body {
 }
 
 .nav-link {
-	color: white
+	color: white;
 }
 
 .nav-link:hover {
 	color: #919191;
-	transition: all 300ms ease-in-out ;
+	transition: all 300ms ease-in-out;
 }
 
 .bi-brightness-high {
@@ -23,7 +23,7 @@ html, body {
 
 .bi-brightness-high:hover {
 	color: #949405;
-	transition: all 300ms ease-in-out ;
+	transition: all 300ms ease-in-out;
 }
 
 .dark-mode {
@@ -48,7 +48,7 @@ html, body {
 }
 
 .text-white {
-	color: white ;
+	color: white;
 }
 
 .ligth-mode .news,
@@ -56,19 +56,19 @@ html, body {
 .ligth-mode .text-white,
 .ligth-mode h3,
 .light-mode .container,
-.light-mode a.fa{
+.light-mode a.fa {
 	color: #000;
 }
 
-.dark-mode .container{
+.dark-mode .container {
 	color: #fff;
 }
 
-.t{
+.t {
 	font-size: 40px;
 }
 
-.light-mode .btn-dark{
+.light-mode .btn-dark {
 	background-color: #000;
 }
 
@@ -76,12 +76,12 @@ html, body {
 	max-width: 1012px;
 }
 
-.more p{
+.more p {
 	font-size: 10px;
 	color: #6E7681;
 }
 
-a{
+a {
 	color: #fff;
 	text-decoration: none;
 }
@@ -114,16 +114,15 @@ body {
 }
 
 .form-control:focus {
-  border-color: white;
-  box-shadow: 0 0 0 0.1rem white;
+	border-color: white;
+	box-shadow: 0 0 0 0.1rem white;
 }
-
 
 .public img {
 	width: 900px;
 }
 
-.creator{
+.creator {
 	font-size: 13px;
 	max-width: fit-content;
 	padding: 3px;
@@ -151,7 +150,7 @@ body {
 	padding: 5px;
 }
 
-.gap-comment{
+.gap-comment {
 	margin-left: 50px;
 }
 
@@ -159,22 +158,26 @@ body {
 	ul.nav {
 		font-size: 10px;
 	}
-	.bi-plus-lg, #change-theme{
+
+	.bi-plus-lg,
+	#change-theme {
 		display: none;
 	}
+
 	.footer {
 		display: flex;
 		flex-direction: column;
 	}
+
 	.footer nav ul li {
 		font-size: 10px;
 		padding: 0 10px;
 	}
 }
 
-
 /* Markdown Editor */
-.editor-preview, .editor-preview-side {
+.editor-preview,
+.editor-preview-side {
 	color: black;
 }
 

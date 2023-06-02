@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&$roov58q)(+0^&4a10!*)t=nhv8qen@w4112r&7%t^xpkbmiu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -65,6 +65,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'custom_filters': 'core.custom_filters',  # myproject é o nome do seu projeto Django
+            },
         },
     },
 ]

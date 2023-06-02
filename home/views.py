@@ -17,7 +17,7 @@ def home(request):
         paginator = Paginator(posts, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
-        return render(request, 'pages/index.html', {'posts': posts, 'category':category})
+        return render(request, 'pages/index.html', {'posts': posts, 'category':category, 'page_quantit': 10})
 
 def register(request):
     if request.method == 'GET':

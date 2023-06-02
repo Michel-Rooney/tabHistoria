@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}Profile{% endblock %}
 
@@ -19,7 +20,7 @@
     {% for post in posts %}
     <div class="d-flex justify-content-between">
       <div class="news pt-1">
-        <h2 class="fs-6">{{ counter }}. <a href="{% url 'post_viewer' post.id %}">{{post.title}}</a></h2>
+        <h2 class="fs-6">{{ forloop.counter|index_post:posts.number }}. <a href="{% url 'post_viewer' post.id %}">{{post.title}}</a></h2>
         <div class="more d-flex align-items-center justify-content-start gap-2">
           <p>{{ post.likes }} likes</p>
           <p>-</p>
@@ -28,10 +29,12 @@
           <p>{{post.creation_date}}</p>
         </div>
       </div>
-      <div class="d-flex align-items-center justify-content-between" style="width: 15%;">
-        <a href="{% url 'delete_post' post.id member.id %}" class="btn btn-outline-danger btn-sm">Deletar</a>
-        <a href="{% url 'update_post' post.id member.id %}" class="btn btn-primary btn-sm">Editar</a>
-      </div>
+      {% if request.user.id == member.id %}
+        <div class="d-flex align-items-center justify-content-between" style="width: 15%;">
+          <a href="{% url 'delete_post' post.id member.id %}" class="btn btn-outline-danger btn-sm">Deletar</a>
+          <a href="{% url 'update_post' post.id member.id %}" class="btn btn-primary btn-sm">Editar</a>
+        </div>
+      {% endif %}
     </div>
     {% endfor %}
 

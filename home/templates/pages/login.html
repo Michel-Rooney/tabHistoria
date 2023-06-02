@@ -4,7 +4,8 @@
 {% block body %}
 <main class="dark-mode d-flex flex-column align-items-center text-white">
   <h1 class="py-5">Login</h1>
-  <form action="{% url 'login' %}" method="POST" style="width: 30%;">{% csrf_token %}
+  <form action="{% url 'login' %}" method="POST" class="login-form">
+    {% csrf_token %}
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" name="email" class="form-control bg-black border-dark text-white" id="email" aria-describedby="emailHelp">
@@ -22,5 +23,6 @@
   </form>  
 </main>
 {% endblock %}
+
 
 
