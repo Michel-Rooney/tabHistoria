@@ -52,7 +52,5 @@ Compo de escrita (
 )
 
 
-# TODO: Fazer as mensagens de respostas
-# TODO: Fazer os regex
-# TODO: Fazer os redirecionamentos
-# TODO: Refatorar o código
+# TODO: Refatorar o código [ michel juan ]
+# TODO: HTML | Digitar a senha apartir do regex (Senha123) [ juan ]

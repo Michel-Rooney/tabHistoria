@@ -1,7 +1,7 @@
-<header style="height: 10vh; background-color: #161B22;" class="d-flex align-items-center justify-content-between">
+<header style="min-height: 7vh; background-color: #161B22;" class="d-flex align-items-center justify-content-between">
   <nav class="navbar-nav">
     <ul class="nav">
-      <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">TabHistoria</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="bi bi-folder2"></i> <span>TabHistoria</span></a></li>
       <form action="{% url 'home' %}" method="GET">
         <button type="submit" name="category" value="relevant" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Relevantes</a></li></button>
         <button type="submit" name="category" value="recent" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Recentes</a></li></button>

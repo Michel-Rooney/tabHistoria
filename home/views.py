@@ -4,6 +4,9 @@ from django.contrib import auth
 from member.models import Post
 from django.db.models.functions import TruncDate
 from django.core.paginator import Paginator
+from django.contrib import messages
+from validation import validation
+
 
 def home(request):
     if request.method == 'GET':
@@ -22,37 +25,55 @@ def home(request):
 def register(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
+            messages.error(request, 'Necessário fazer logout para acessar a página.')
             return redirect('/')
         return render(request, 'pages/register.html')
     elif request.method == 'POST':
-        name = request.POST.get('name')
+        username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = User.objects.create_user(username=name, email=email, password=password)
-        user.save()
+        if not validation.register_is_valid(request, username, email, password):
+            return redirect('/register/')
 
-        return redirect('/login')
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            messages.success(request, 'Usuário criado com sucesso')
+            return redirect('/login/')
+        except:
+            messages.error(request, 'Erro interno do sistema ocorreu.')
+            return redirect('/register/')
 
 def login(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
+            messages.error(request, 'Necessário fazer logout para acessar a página.')
             return redirect('/')
         return render(request, 'pages/login.html')
     elif request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        username = User.objects.filter(email=email).first()
-        
-        user = auth.authenticate(username=username, password=password)
-        if user is not None:
-            auth.login(request, user)
-            return redirect('/')
-        else:
+        if not validation.login_is_valid(request, email, password):
             return redirect('/login')
-
+        
+        try:
+            username = User.objects.filter(email=email).first()
+            user = auth.authenticate(username=username, password=password)
+            
+            if user is not None:
+                auth.login(request, user)
+                messages.success(request, 'Login realizado com sucesso.')
+                return redirect('/')
+            else:
+                messages.error(request, 'Falha no login.')
+                return redirect('/login')
+        except:
+            messages.error(request, 'Erro interno do sistema ocorreu.')
+            return redirect('/login')
 
 def logout(request):
     auth.logout(request)
+    messages.success(request, 'Logout realizado com sucesso.')
     return redirect('/login')

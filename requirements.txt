@@ -1,5 +1,10 @@
 asgiref==3.6.0
+certifi==2023.5.7
+charset-normalizer==3.1.0
 Django==4.2.1
+idna==3.4
 pyinotify==0.9.6
+requests==2.31.0
 sqlparse==0.4.4
+urllib3==2.0.2
 websocket-server==0.6.4

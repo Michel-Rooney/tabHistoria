@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from django.contrib.messages import constants
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +27,9 @@ SECRET_KEY = 'django-insecure-&$roov58q)(+0^&4a10!*)t=nhv8qen@w4112r&7%t^xpkbmiu
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://juan-severiano-reimagined-winner-6qpgrw6wjjxhr797.github.dev/'
+]
 
 
 # Application definition
@@ -37,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # --- Divison ---
     'home',
     'member',
+    'validation',
 ]
 
 MIDDLEWARE = [
@@ -130,4 +136,14 @@ STATICFILES_DIRS = BASE_DIR / 'templates/static',
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Allow <iframe>
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# Messsages
+MESSAGE_TAGS = {
+    constants.DEBUG: 'alerto-primary',
+    constants.ERROR: 'alert-danger',
+    constants.SUCCESS: 'alert-success',
+    constants.INFO: 'alerto-info',
+    constants.WARNING: 'alert-warning'
+}

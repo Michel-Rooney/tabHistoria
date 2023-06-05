@@ -4,11 +4,11 @@
 {% block body %}
 <main class="dark-mode d-flex flex-column align-items-center text-white">
   <h1 class="py-5">Cadastrar</h1>
-  <form action="{% url 'register' %}" method="POST" class="register-form">
+  <form action="{% url 'register' %}" method="POST" class="register-form valid-form">
     {% csrf_token %}
     <div class="form-group">
       <label for="name">Nome:</label>
-      <input type="text" name="name" class="form-control bg-black border-dark text-white" id="name" aria-describedby="telHelp">
+      <input type="text" name="username" class="form-control bg-black border-dark text-white" id="name" aria-describedby="telHelp">
     </div>
     <div class="form-group pt-3">
       <label for="email">Email:</label>
