@@ -17,10 +17,10 @@
       {% else %}
         <li class="nav-item"><a class="nav-link" href="{% url 'post' %}"><i class="bi bi-plus-lg"></i></a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="memberDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="clientDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-square" id="change-mode"></i> {{user.username}}
           </a>
-          <ul class="dropdown-menu" aria-labelledby="memberDropdown" style="background-color: #161B22;">
+          <ul class="dropdown-menu" aria-labelledby="clientDropdown" style="background-color: #161B22;">
             <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="bi bi-house-door"></i> {{user.username}}</a></li>
             <li><hr style="height: 1px; color: white;"></li>
             <li><a class="dropdown-item" href="{% url 'post' %}"><i class="bi bi-plus-lg"></i> Publicar novo conteúdo</a></li>
