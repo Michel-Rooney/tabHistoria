@@ -53,4 +53,5 @@ Compo de escrita (
 
 
 # TODO: Refatorar o código [ michel juan ]
+# TODO: Atulizar as informações do member [ michel juan ]
 # TODO: HTML | Digitar a senha apartir do regex (Senha123) [ juan ]
