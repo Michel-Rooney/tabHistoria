@@ -81,3 +81,10 @@ def make_comment_is_valid(request: any, content: str) -> bool:
         return False
     
     return True
+
+def update_profile_is_valid(request: any, profile: object, username: str, email: str) -> str:
+    username_validation_exist = False if profile.username == username else True
+    email_validation_exist = False if profile.email == email else True
+    if not username_is_valid(request, username, validation_exist=username_validation_exist): return False
+    if not email_is_valid(request, email, validation_exist=email_validation_exist): return False
+    return True

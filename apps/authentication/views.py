@@ -39,7 +39,7 @@ def login(request):
         password = request.POST.get('password')
 
         if not validation.login_is_valid(request, email, password):
-            return redirect('/login')
+            return redirect('/auth/login')
         
         try:
             username = User.objects.filter(email=email).first()

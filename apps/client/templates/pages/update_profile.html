@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<main class="dark-mode d-flex flex-column align-items-center text-white">
+  <h1 class="py-5">Atualizar Perfil</h1>
+  <form action="{% url 'update_profile' profile.id %}" method="POST" class="register-form valid-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Nome:</label>
+      <input type="text" name="username" value="{{profile.username}}" class="form-control bg-black border-dark text-white" id="name" aria-describedby="telHelp">
+    </div>
+    <div class="form-group pt-3">
+      <label for="email">Email:</label>
+      <input type="email" name="email" value="{{profile.email}}" class="form-control bg-black border-dark text-white" id="email" aria-describedby="emailHelp">
+    </div>
+    <div class="d-flex flex-column align-items-center">
+      <button type="submit" class="btn btn-dark mt-3">Atualizar</button>
+    </div>
+  </form>   
+</main>
+{% endblock %}
