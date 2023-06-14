@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
 from apps.validation import validation
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -56,6 +57,7 @@ def login(request):
             messages.error(request, 'Erro interno do sistema ocorreu.')
             return redirect('/auth/login')
 
+@login_required(login_url='/auth/login')
 def logout(request):
     try:
         auth.logout(request)

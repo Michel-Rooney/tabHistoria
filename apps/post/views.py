@@ -6,7 +6,7 @@ from apps.validation import validation
 from django.contrib import messages
 
 
-@login_required(login_url='login')
+@login_required(login_url='/auth/login')
 def post(request):
     if request.method == 'GET':
         return render(request, 'pages/post.html')
@@ -35,7 +35,7 @@ def render_post(request, id):
     post = get_object_or_404(Post, id=id)
     return render(request, 'partials/render_post.html', {'post': post})
 
-@login_required(login_url='/login')
+@login_required(login_url='/auth/login')
 def delete_post(request, pk_post, pk_client):
     client = get_object_or_404(User, pk=pk_client)
 
@@ -52,7 +52,7 @@ def delete_post(request, pk_post, pk_client):
         messages.error(request, 'Erro interno do sistema ocorreu.')
         return redirect(f'/client/profile/{client.id}/')
 
-@login_required(login_url='/login')
+@login_required(login_url='/auth/login')
 def update_post(request, pk_post, pk_client):
     post = get_object_or_404(Post, pk=pk_post)
     client = get_object_or_404(User, pk=pk_client)
@@ -80,7 +80,7 @@ def update_post(request, pk_post, pk_client):
             messages.error(request, 'Erro interno do sistema ocorreu.')
             return redirect(f'/client/profile/{client.id}')
 
-@login_required(login_url='/login')
+@login_required(login_url='/auth/login')
 def vote(request, id):
     vote = request.POST.get('vote')
     type = request.POST.get('type')
@@ -107,7 +107,7 @@ def vote(request, id):
             entity.users_disliked.add(request.user.id)
             entity.users_liked.remove(request.user.id)
             entity.likes -= 1
-            messages.error(request, 'Deslike realizado com sucesso.')
+            messages.success(request, 'Deslike realizado com sucesso.')
 
         entity.save()
         return redirect(f'/post/{id_post}/')
@@ -115,7 +115,7 @@ def vote(request, id):
         messages.error(request, 'Erro interno do sistema ocorreu.')
         return redirect(f'/post/{id_post}/')
     
-@login_required(login_url='/login')
+@login_required(login_url='/auth/login')
 def comment(request, id):
     content = request.POST.get('text-content')
     type = request.POST.get('type')
