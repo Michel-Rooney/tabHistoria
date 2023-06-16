@@ -33,9 +33,13 @@ html, body {
 }
 
 .dark-mode {
-	min-height: 80vh;
+	min-height: 73vh;
 	padding-bottom: 30px;
 	background-color: #0D1117;
+}
+
+.section {
+	min-height: 80vh;
 }
 
 .dropdown-item {

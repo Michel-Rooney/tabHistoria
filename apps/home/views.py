@@ -17,3 +17,6 @@ def home(request):
         page = request.GET.get('page')
         posts = paginator.get_page(page)
         return render(request, 'pages/index.html', {'posts': posts, 'category':category, 'page_quantit': 10})
+
+def about(request):
+    return render(request, 'pages/about.html')
