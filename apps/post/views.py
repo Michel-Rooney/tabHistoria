@@ -122,7 +122,7 @@ def comment(request, id):
     id_post = request.POST.get('id-post')
 
     if not validation.make_comment_is_valid(request, content):
-        return redirect(f'/client/post/{id_post}')
+        return redirect(f'/post/{id_post}/')
 
     if type == 'post':
         entity = get_object_or_404(Post, id=id)
