@@ -9,7 +9,7 @@
 {% block body %}
 <main class="dark-mode" id="main">
   <section class="container text-white pt-4">
-      <form action="{% url 'post' %}" method="post">{% csrf_token %}
+      <form action="{% url 'post:post' %}" method="post">{% csrf_token %}
         <div class="form-group py-2">
           <label for="title"><h3>Publicar novo conteúdo:</h3></label>
           <input type="text" name="title" class="form-control bg-black border-dark text-white" id="title" aria-describedby="titleHelp">

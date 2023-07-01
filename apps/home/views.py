@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from apps.post.models import Post
 from django.db.models.functions import TruncDate
 from django.core.paginator import Paginator
@@ -17,6 +17,10 @@ def home(request):
         page = request.GET.get('page')
         posts = paginator.get_page(page)
         return render(request, 'pages/index.html', {'posts': posts, 'category':category, 'page_quantit': 10})
+    return HttpResponse("Invalid request")
+
 
 def about(request):
-    return render(request, 'pages/about.html')
+    if request.method == 'GET':
+        return render(request, 'pages/about.html')
+    return HttpResponse("Invalid request")

@@ -10,7 +10,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <h1 >{{client.username}}</h1>
       {% if user.id == client.id %}
-        <a class="btn btn-dark btn-sm" href="{% url 'post' %}"><i class="bi bi-plus-lg"> Publicar conteúdo</i></a>
+        <a class="btn btn-dark btn-sm" href="{% url 'post:post' %}"><i class="bi bi-plus-lg"> Publicar conteúdo</i></a>
       {% endif %}
     </div>
     <hr>
@@ -20,7 +20,7 @@
     {% for post in posts %}
     <div class="d-flex justify-content-between">
       <div class="news pt-1">
-        <h2 class="fs-6">{{ forloop.counter|index_post:posts.number }}. <a href="{% url 'post_viewer' post.id %}">{{post.title}}</a></h2>
+        <h2 class="fs-6">{{ forloop.counter|index_post:posts.number }}. <a href="{% url 'post:post_viewer' post.id %}">{{post.title}}</a></h2>
         <div class="more d-flex align-items-center justify-content-start gap-2">
           <p>{{ post.likes }} likes</p>
           <p>-</p>
@@ -31,8 +31,8 @@
       </div>
       {% if request.user.id == client.id %}
         <div class="d-flex align-items-center justify-content-between" style="width: 15%;">
-          <a href="{% url 'delete_post' post.id client.id %}" class="btn btn-outline-danger btn-sm">Deletar</a>
-          <a href="{% url 'update_post' post.id client.id %}" class="btn btn-primary btn-sm">Editar</a>
+          <a href="{% url 'post:delete_post' post.id client.id %}" class="btn btn-outline-danger btn-sm">Deletar</a>
+          <a href="{% url 'post:update_post' post.id client.id %}" class="btn btn-primary btn-sm">Editar</a>
         </div>
       {% endif %}
     </div>

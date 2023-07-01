@@ -1,8 +1,8 @@
 <header style="height: 10vh; background-color: #161B22;" class="d-flex align-items-center justify-content-between">
   <nav class="navbar-nav">
     <ul class="nav">
-      <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="bi bi-folder2"></i> <span>TabHistoria</span></a></li>
-      <form action="{% url 'home' %}" method="GET" >
+      <li class="nav-item"><a class="nav-link" href="{% url 'home:home' %}"><i class="bi bi-folder2"></i> <span>TabHistoria</span></a></li>
+      <form action="{% url 'home:home' %}" method="GET" >
         <button type="submit" name="category" value="relevant" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Relevantes</a></li></button>
         <button type="submit" name="category" value="recent" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Recentes</a></a></li></button>
       </form>
@@ -12,27 +12,27 @@
     <ul class="nav">
       <li class="nav-item"><i class="bi bi-brightness-high nav-link change" id="change-theme"></i></li>
       {% if not user.is_authenticated %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Cadastrar</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'authentication:login' %}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'authentication:register' %}">Cadastrar</a></li>
       {% else %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'post' %}"><i class="bi bi-plus-lg"></i></a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'post:post' %}"><i class="bi bi-plus-lg"></i></a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="memberDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-square" id="change-mode"></i> {{user.username}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="memberDropdown" style="background-color: #161B22;">
-            <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="bi bi-house-door"></i> {{user.username}}</a></li>
+            <li><a class="dropdown-item" href="{% url 'client:profile' user.id %}"><i class="bi bi-house-door"></i> {{user.username}}</a></li>
             <li><hr style="height: 1px; color: white;"></li>
-            <li><a class="dropdown-item" href="{% url 'post' %}"><i class="bi bi-plus-lg"></i> Publicar novo conteúdo</a></li>
-            <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="bi bi-card-list"></i> Meus conteúdos</a></li>
-            <li><a class="dropdown-item" href="{% url 'update_profile' user.id %}"><i class="bi bi-pencil"></i> Editar perfil</a></li>
+            <li><a class="dropdown-item" href="{% url 'post:post' %}"><i class="bi bi-plus-lg"></i> Publicar novo conteúdo</a></li>
+            <li><a class="dropdown-item" href="{% url 'client:profile' user.id %}"><i class="bi bi-card-list"></i> Meus conteúdos</a></li>
+            <li><a class="dropdown-item" href="{% url 'client:update_profile' user.id %}"><i class="bi bi-pencil"></i> Editar perfil</a></li>
             <li><hr style="height: 1px; color: white;"></li>
             <div class="d-flex  align-items-center justify-content-center">
               <li class="nav-item"><i class="bi bi-brightness-high nav-link change-sun"></i></li>
               <li class="nav-item"><i class="bi bi-moon-stars nav-link change-moon"></i></li>
             </div>
             <li><hr style="height: 1px; color: white;"></li>
-            <li><a class="dropdown-item" href="{% url 'logout' %}" style="color: red;">Sair</a></li>
+            <li><a class="dropdown-item" href="{% url 'authentication:logout' %}" style="color: red;">Sair</a></li>
           </ul>
       {% endif %}
       </li>

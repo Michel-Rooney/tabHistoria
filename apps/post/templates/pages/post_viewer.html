@@ -10,7 +10,7 @@
 <main class="dark-mode" id="main">
   <section class="container pt-4 d-flex">
     <aside class="d-flex flex-column justify-content-start align-items-center p-2 m-4">
-      <form action="{% url 'vote' post.id %}" method="POST" class="d-flex flex-column justify-content-start align-items-center">{% csrf_token %}
+      <form action="{% url 'post:vote' post.id %}" method="POST" class="d-flex flex-column justify-content-start align-items-center">{% csrf_token %}
         <input type="hidden" name="type" value="post">
         <input type="hidden" name="id-post" value="{{post.id}}">
         <button type="submit" name="vote" value="up" style="border: none; background: none; color: inherit;" class="bi bi-chevron-up"></button>
@@ -21,7 +21,7 @@
     </aside>
     <div style="width: 100%;">
       <div class="d-flex p-0">
-        <p><a class="creator" href="{% url 'profile' post.creator.id %}">{{ post.creator }}</a></p>
+        <p><a class="creator" href="{% url 'client:profile' post.creator.id %}">{{ post.creator }}</a></p>
         <p class="date">{{post.creation_date}}</p>
       </div>
       <iframe src="http://127.0.0.1:8000/render_post/{{post.id}}" id="iframe-post" frameborder="0" style="width: 100%;"></iframe>
@@ -41,7 +41,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Responder o Post</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="{% url 'comment' post.id %}" method="post">{% csrf_token %}
+      <form action="{% url 'post:comment' post.id %}" method="post">{% csrf_token %}
         <div class="modal-body">
           <input type="hidden" name="type" value="post">
           <input type="hidden" name="id-post" value="{{post.id}}">

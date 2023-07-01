@@ -12,7 +12,7 @@
       <div class="news pt-1 grid-item">
         <h2 class="fs-6 weight">
           {{ forloop.counter|index_post:posts.number }}.
-          <a href="{% url 'post_viewer' post.id %}" class="post-link">{{ post.title }}</a>
+          <a href="{% url 'post:post_viewer' post.id %}" class="post-link">{{ post.title }}</a>
         </h2>
         <div class="more d-flex align-items-center justify-content-start gap-2">
           <p>{{ post.likes }} likes</p>

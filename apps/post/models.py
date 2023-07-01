@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Comment(models.Model):
-    creator =  models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     comments = models.ManyToManyField('self', blank=True)
-    likes = models.IntegerField(blank=True, null=True,  default=0)
+    likes = models.IntegerField(blank=True, null=True, default=0)
     users_liked = models.ManyToManyField(User, related_name='comment_liked', blank=True)
     users_disliked = models.ManyToManyField(User, related_name='comment_disliked', blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)

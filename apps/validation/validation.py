@@ -17,7 +17,7 @@ def username_is_valid(request: any, username: str, validation_exist: bool = Fals
     return True
 
 def email_is_valid(request: any, email: str, validation_exist: bool = False) -> bool:
-    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$' #exemplo@email.com"
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'  # exemplo@email.com
 
     if len(email.strip()) == 0:
         messages.error(request, 'Campo de email vazio.')
@@ -36,7 +36,7 @@ def email_is_valid(request: any, email: str, validation_exist: bool = False) -> 
     return True
 
 def password_is_valid(request: any, password: str) -> bool:
-    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$' #Senha123
+    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$'  # Senha123
     
     if len(password.strip()) == 0:
         messages.error(request, 'Campo de senha vazio.')
@@ -44,24 +44,29 @@ def password_is_valid(request: any, password: str) -> bool:
 
     if not re.match(pattern, password):
         messages.error(request, 'Senha inválida')
-        return False 
+        return False
     
     return True
 
 
 def register_is_valid(request: any, username: str, email: str, password: str) -> bool:
-    if not username_is_valid(request, username): return False
+    if not username_is_valid(request, username):
+        return False
     
-    if not email_is_valid(request, email, validation_exist=True): return False
+    if not email_is_valid(request, email, validation_exist=True):
+        return False
     
-    if not password_is_valid(request, password): return False
+    if not password_is_valid(request, password):
+        return False
     
     return True
 
 def login_is_valid(request: any, email: str, password: str) -> bool:
-    if not email_is_valid(request, email): return False
+    if not email_is_valid(request, email):
+        return False
 
-    if not password_is_valid(request, password): return False
+    if not password_is_valid(request, password):
+        return False
 
     return True
 

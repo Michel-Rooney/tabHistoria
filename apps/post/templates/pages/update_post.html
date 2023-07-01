@@ -9,7 +9,7 @@
 {% block body %}
 <main class="dark-mode" id="main">
   <section class="container text-white pt-4">
-      <form action="{% url 'update_post' post.id client.id %}" method="post">{% csrf_token %}
+      <form action="{% url 'post:update_post' post.id client.id %}" method="post">{% csrf_token %}
         <div class="form-group py-2">
           <label for="title"><h3>Editar Post:</h3></label>
           <input value="{{ post.title }}" type="text" name="title" class="form-control bg-black border-dark text-white" id="title" aria-describedby="titleHelp">

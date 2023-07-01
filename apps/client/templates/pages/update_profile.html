@@ -4,7 +4,7 @@
 {% block body %}
 <main class="dark-mode d-flex flex-column align-items-center text-white">
   <h1 class="py-5">Atualizar Perfil</h1>
-  <form action="{% url 'update_profile' profile.id %}" method="POST" class="register-form valid-form">
+  <form action="{% url 'client:update_profile' profile.id %}" method="POST" class="register-form valid-form">
     {% csrf_token %}
     <div class="form-group">
       <label for="name">Nome:</label>

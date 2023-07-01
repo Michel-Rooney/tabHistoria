@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from apps.post.models import Post, Comment
@@ -15,87 +15,89 @@ def post(request):
         text_content = request.POST.get('text-content')
 
         if not validation.post_is_valid(request, title, text_content):
-            return redirect(f'/post')
+            return redirect('/post/')
 
-        try:
-            post = Post(title=title.strip(), creator=request.user, content=text_content)
-            post.save()
-            messages.success(request, 'Post criado com sucesso')
-            return redirect(f'/client/profile/{request.user.id}')
-        except:
-            messages.error(request, 'Erro interno do sistema ocorreu.')
-            return redirect(f'/post/{post.id}')
+        post = Post(title=title.strip(), creator=request.user, content=text_content)
+        post.save()
+        messages.success(request, 'Post criado com sucesso')
+        return redirect(f'/client/profile/{request.user.id}/')
+    return HttpResponse("Invalid request")
+
 
 def post_viewer(request, id):
-    post = get_object_or_404(Post, id=id)
-    comments = post.comments.all()
-    return render(request, 'pages/post_viewer.html', {'post':post, 'comments':comments})
+    if request.method == 'GET':
+        post = get_object_or_404(Post, id=id)
+        comments = post.comments.all()
+        return render(request, 'pages/post_viewer.html', {'post': post, 'comments': comments})
+    return HttpResponse("Invalid request")
+
 
 def render_post(request, id):
-    post = get_object_or_404(Post, id=id)
-    return render(request, 'partials/render_post.html', {'post': post})
+    if request.method == 'GET':
+        post = get_object_or_404(Post, id=id)
+        return render(request, 'partials/render_post.html', {'post': post})
+    return HttpResponse("Invalid request")
+
 
 @login_required(login_url='/auth/login')
 def delete_post(request, pk_post, pk_client):
-    client = get_object_or_404(User, pk=pk_client)
+    if request.method == 'GET':
+        client = get_object_or_404(User, pk=pk_client)
 
-    if request.user.id != client.id:
-        messages.error(request, 'A ação de deletar um post de outro usuário não é permitida para o usuário atual.')
-        return redirect(f'/client/profile/{client.id}/')
+        if request.user.id != client.id:
+            messages.error(request, 'A ação de deletar um post de outro usuário não é permitida para o usuário atual.')
+            return redirect(f'/client/profile/{client.id}/')
 
-    try:
         post = get_object_or_404(Post, pk=pk_post)
         post.delete()
         messages.success(request, 'Post excluído com sucesso.')
         return redirect(f'/client/profile/{client.id}/')
-    except:
-        messages.error(request, 'Erro interno do sistema ocorreu.')
-        return redirect(f'/client/profile/{client.id}/')
+    return HttpResponse("Invalid request")
+
 
 @login_required(login_url='/auth/login')
 def update_post(request, pk_post, pk_client):
-    post = get_object_or_404(Post, pk=pk_post)
-    client = get_object_or_404(User, pk=pk_client)
+    post = Post.objects.filter(pk=pk_post).first()
+    client = User.objects.filter(pk=pk_client).first()
+
+    if not post or not client:
+        return HttpResponse("Invalid request")
 
     if request.user.id != client.id:
         messages.error(request, 'A ação de atualizar um post de outro usuário não é permitida para o usuário atual.')
         return redirect(f'/client/profile/{client.id}/')
-    
+
     elif request.method == 'GET':
         return render(request, 'pages/update_post.html', {'post': post, 'client': client})
-    
-    elif request.method == 'POST':
+
+    else:
         title = request.POST.get('title')
         text_content = request.POST.get('text-content')
 
         if not validation.post_is_valid(request, title, text_content):
             return redirect(f'/client/update_post/{post.id}/{client.id}/')
 
-        try:
-            post.title = title
-            post.content = text_content
-            post.save()
-            return redirect(f'/client/profile/{client.id}')
-        except:
-            messages.error(request, 'Erro interno do sistema ocorreu.')
-            return redirect(f'/client/profile/{client.id}')
+        post.title = title
+        post.content = text_content
+        post.save()
+        messages.success(request, 'Post atualizado com sucesso.')
+        return redirect(f'/client/profile/{client.id}')
+
 
 @login_required(login_url='/auth/login')
 def vote(request, id):
-    vote = request.POST.get('vote')
-    type = request.POST.get('type')
-    id_post = request.POST.get('id-post')
-    
-    if type == 'comment':
-        entity = get_object_or_404(Comment, id=id)
-    else:
-        entity = get_object_or_404(Post, id=id)
-        
-    
-    try:
+    if request.method == 'POST':
+        vote = request.POST.get('vote')
+        type = request.POST.get('type')
+        id_post = request.POST.get('id-post')
+
+        if type == 'comment':
+            entity = get_object_or_404(Comment, id=id)
+        else:
+            entity = get_object_or_404(Post, id=id)
+
         user_liked = entity.users_liked.filter(id=request.user.id).exists()
         user_disliked = entity.users_disliked.filter(id=request.user.id).exists()
-        
 
         if vote == 'up' and not user_liked:
             entity.users_liked.add(request.user.id)
@@ -111,35 +113,32 @@ def vote(request, id):
 
         entity.save()
         return redirect(f'/post/{id_post}/')
-    except:
-        messages.error(request, 'Erro interno do sistema ocorreu.')
-        return redirect(f'/post/{id_post}/')
-    
+    return HttpResponse("Invalid request")
+
+
 @login_required(login_url='/auth/login')
 def comment(request, id):
-    content = request.POST.get('text-content')
-    type = request.POST.get('type')
-    id_post = request.POST.get('id-post')
+    if request.method == 'POST':
+        content = request.POST.get('text-content')
+        type = request.POST.get('type')
+        id_post = request.POST.get('id-post')
 
-    if not validation.make_comment_is_valid(request, content):
-        return redirect(f'/post/{id_post}/')
+        if not validation.make_comment_is_valid(request, content):
+            return redirect(f'/post/{id_post}/')
 
-    if type == 'post':
-        entity = get_object_or_404(Post, id=id)
-    else:
-        entity = get_object_or_404(Comment, id=id)
+        if type == 'post':
+            entity = get_object_or_404(Post, id=id)
+        else:
+            entity = get_object_or_404(Comment, id=id)
 
-    try:
-        new_comment = Comment (
-            creator = request.user,
-            content = content
+        new_comment = Comment(
+            creator=request.user,
+            content=content
         )
 
         new_comment.save()
         entity.comments.add(new_comment.id)
         entity.save()
         messages.success(request, 'Comentario feito com sucesso.')
-        return redirect(f'/post/{id_post}')
-    except:
-        messages.error(request, 'Erro interno do sistema ocorreu.')
-        return redirect(f'/post/{id_post}')
+        return redirect(f'/post/{id_post}/')
+    return HttpResponse("Invalid request", status=302)
