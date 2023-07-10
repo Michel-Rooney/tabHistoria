@@ -32,7 +32,12 @@
               <li class="nav-item"><i class="bi bi-moon-stars nav-link change-moon"></i></li>
             </div>
             <li><hr style="height: 1px; color: white;"></li>
-            <li><a class="dropdown-item" href="{% url 'authentication:logout' %}" style="color: red;">Sair</a></li>
+            <li>
+              <form action="{% url 'authentication:logout' %}" method="POST">{% csrf_token %}
+                <input type="hidden" name="username" value="{{ request.user.username }}">
+                <button class="dropdown-item" type="submit" style="color: red;">Sair</button>
+              </form>
+            </li>
           </ul>
       {% endif %}
       </li>

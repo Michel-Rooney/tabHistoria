@@ -16,7 +16,9 @@ class PostViewsTest(PostTestBase):
       ('post:delete_post', {'pk_post': 1, 'pk_client': 1}, views.delete_post),
       ('post:update_post', {'pk_post': 1, 'pk_client': 1}, views.update_post),
     ])
-    def test_post_view_function_is_correct(self, path_name, arguments, correct_view):
+    def test_post_view_function_is_correct(
+        self, path_name, arguments, correct_view
+    ):
         url = reverse(path_name, kwargs=arguments)
         view = resolve(url)
         self.assertIs(view.func, correct_view)
@@ -30,7 +32,9 @@ class PostViewsTest(PostTestBase):
       ('post:delete_post', {'pk_post': 1, 'pk_client': 2}, 302),
       ('post:update_post', {'pk_post': 1, 'pk_client': 2}, 302),
     ])
-    def test_post_view_returns_status_code_expect(self, path_name, arguments, code):
+    def test_post_view_returns_status_code_expect(
+        self, path_name, arguments, code
+    ):
         client = self.make_login_client()
         user = User.objects.create_user(
             username='Post view', password='123')
@@ -46,9 +50,15 @@ class PostViewsTest(PostTestBase):
     @parameterized.expand([
         ('post:post_viewer', {'id': 1}, 'pages/post_viewer.html'),
         ('post:render_post', {'id': 1}, 'partials/render_post.html'),
-        ('post:update_post', {'pk_post': 1, 'pk_client': 1}, 'pages/update_post.html')
+        (
+            'post:update_post',
+            {'pk_post': 1, 'pk_client': 1},
+            'pages/update_post.html'
+        )
     ])
-    def test_post_view_loads_correct_template(self, path_name, arguments, correct_template):
+    def test_post_view_loads_correct_template(
+        self, path_name, arguments, correct_template
+    ):
         client = self.make_login_client()
         user = User.objects.first()
         Post.objects.create(
@@ -107,7 +117,7 @@ class PostViewsTest(PostTestBase):
             username='Client delete',
             email='clientdelete@gmail.com'
         )
-        post = self.make_post()
+        self.make_post()
         url = reverse('post:delete_post', kwargs={
             'pk_post': 1, 'pk_client': 1
         })
@@ -122,7 +132,7 @@ class PostViewsTest(PostTestBase):
             username='Client update',
             email='clientupdate@gmail.com'
         )
-        post = self.make_post()
+        self.make_post()
         url = reverse('post:update_post', kwargs={
             'pk_post': 1, 'pk_client': 1
         })
@@ -141,7 +151,8 @@ class PostViewsTest(PostTestBase):
             username='Client update',
             email='clientupdate@gmail.com'
         )
-        post = self.make_post()
+
+        self.make_post()
         url = reverse('post:update_post', kwargs={
             'pk_post': 1, 'pk_client': 1
         })
@@ -153,7 +164,7 @@ class PostViewsTest(PostTestBase):
         stored_messages = list(messages.get_messages(response.wsgi_request))
         message = stored_messages[0].message
         self.assertEqual(message, 'Preencha todos os campos necessários.')
-        self.assertEqual(response.url, '/client/update_post/1/1/')
+        self.assertEqual(response.url, '/update_post/1/1/')
 
     def test_post_comment_vote_up_is_success(self):
         self.make_comment()

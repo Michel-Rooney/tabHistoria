@@ -8,16 +8,16 @@
     {% csrf_token %}
     <div class="form-group">
       <label for="name">Nome:</label>
-      <input type="text" name="username" class="form-control bg-black border-dark text-white" id="name" aria-describedby="telHelp">
+      <input type="text" name="username" class="form-control bg-black border-dark text-white" id="name" aria-describedby="telHelp" placeholder="Ex.: John">
     </div>
     <div class="form-group pt-3">
       <label for="email">Email:</label>
-      <input type="email" name="email" class="form-control bg-black border-dark text-white" id="email" aria-describedby="emailHelp">
+      <input type="email" name="email" class="form-control bg-black border-dark text-white" id="email" aria-describedby="emailHelp" placeholder="Ex.: exemple@gmail.com">
     </div>
     <div class="form-group pt-3">
       <label for="password">Password:</label>
       <div class="input-group">
-        <input type="password" name="password" class="form-control bg-black border-dark text-white" id="password">
+        <input type="password" name="password" class="form-control bg-black border-dark text-white" id="password" placeholder="Ex.: Sua senha">
         <button class="btn btn-outline-secondary" type="button" id="toggle-password"><i class="bi bi-eye"></i></button>
       </div>
     </div>

@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 from apps.post.models import Post, Comment
 from apps.validation import validation
 from django.contrib import messages
+from django.urls import reverse
 
 
-@login_required(login_url='/auth/login')
+@login_required(login_url='/auth/login', redirect_field_name='next')
 def post(request):
     if request.method == 'GET':
         return render(request, 'pages/post.html')
@@ -17,7 +18,11 @@ def post(request):
         if not validation.post_is_valid(request, title, text_content):
             return redirect('/post/')
 
-        post = Post(title=title.strip(), creator=request.user, content=text_content)
+        post = Post(
+            title=title.strip(),
+            creator=request.user,
+            content=text_content
+        )
         post.save()
         messages.success(request, 'Post criado com sucesso')
         return redirect(f'/client/profile/{request.user.id}/')
@@ -28,7 +33,13 @@ def post_viewer(request, id):
     if request.method == 'GET':
         post = get_object_or_404(Post, id=id)
         comments = post.comments.all()
-        return render(request, 'pages/post_viewer.html', {'post': post, 'comments': comments})
+        render_post_url = reverse('post:render_post', kwargs={'id': post.id})
+        context = {
+            'post': post,
+            'comments': comments,
+            'render_post_url': render_post_url,
+        }
+        return render(request, 'pages/post_viewer.html', context=context)
     return HttpResponse("Invalid request")
 
 
@@ -39,13 +50,17 @@ def render_post(request, id):
     return HttpResponse("Invalid request")
 
 
-@login_required(login_url='/auth/login')
+@login_required(login_url='/auth/login', redirect_field_name='next')
 def delete_post(request, pk_post, pk_client):
     if request.method == 'GET':
         client = get_object_or_404(User, pk=pk_client)
 
         if request.user.id != client.id:
-            messages.error(request, 'A ação de deletar um post de outro usuário não é permitida para o usuário atual.')
+            message = (
+                'A ação de deletar um post de outro usuário '
+                'não é permitida para o usuário atual.'
+            )
+            messages.error(request, message)
             return redirect(f'/client/profile/{client.id}/')
 
         post = get_object_or_404(Post, pk=pk_post)
@@ -55,7 +70,7 @@ def delete_post(request, pk_post, pk_client):
     return HttpResponse("Invalid request")
 
 
-@login_required(login_url='/auth/login')
+@login_required(login_url='/auth/login', redirect_field_name='next')
 def update_post(request, pk_post, pk_client):
     post = Post.objects.filter(pk=pk_post).first()
     client = User.objects.filter(pk=pk_client).first()
@@ -64,18 +79,24 @@ def update_post(request, pk_post, pk_client):
         return HttpResponse("Invalid request")
 
     if request.user.id != client.id:
-        messages.error(request, 'A ação de atualizar um post de outro usuário não é permitida para o usuário atual.')
+        message = (
+            'A ação de atualizar um post de outro usuário '
+            'não é permitida para o usuário atual.'
+        )
+        messages.error(request, message)
         return redirect(f'/client/profile/{client.id}/')
 
     elif request.method == 'GET':
-        return render(request, 'pages/update_post.html', {'post': post, 'client': client})
+        context = {'post': post, 'client': client}
+        return render(request, 'pages/update_post.html', context=context)
 
     else:
         title = request.POST.get('title')
         text_content = request.POST.get('text-content')
 
         if not validation.post_is_valid(request, title, text_content):
-            return redirect(f'/client/update_post/{post.id}/{client.id}/')
+            data = {'pk_post': post.id, 'pk_client': client.id}
+            return redirect(reverse('post:update_post', kwargs=data))
 
         post.title = title
         post.content = text_content
@@ -84,7 +105,7 @@ def update_post(request, pk_post, pk_client):
         return redirect(f'/client/profile/{client.id}')
 
 
-@login_required(login_url='/auth/login')
+@login_required(login_url='/auth/login', redirect_field_name='next')
 def vote(request, id):
     if request.method == 'POST':
         vote = request.POST.get('vote')
@@ -96,19 +117,20 @@ def vote(request, id):
         else:
             entity = get_object_or_404(Post, id=id)
 
-        user_liked = entity.users_liked.filter(id=request.user.id).exists()
-        user_disliked = entity.users_disliked.filter(id=request.user.id).exists()
+        user_liked = entity.users_liked.filter(
+            id=request.user.id).exists()
+        user_disliked = entity.users_disliked.filter(
+            id=request.user.id).exists()
 
         if vote == 'up' and not user_liked:
             entity.users_liked.add(request.user.id)
-            entity.users_disliked.remove(request.user.id)   
+            entity.users_disliked.remove(request.user.id)
             entity.likes += 1
             messages.success(request, 'Like realizado com sucesso.')
 
         if vote == 'down' and not user_disliked:
             entity.users_disliked.add(request.user.id)
             entity.users_liked.remove(request.user.id)
-            entity.likes -= 1
             messages.success(request, 'Deslike realizado com sucesso.')
 
         entity.save()
@@ -116,7 +138,7 @@ def vote(request, id):
     return HttpResponse("Invalid request")
 
 
-@login_required(login_url='/auth/login')
+@login_required(login_url='/auth/login', redirect_field_name='next')
 def comment(request, id):
     if request.method == 'POST':
         content = request.POST.get('text-content')

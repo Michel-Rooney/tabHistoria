@@ -35,9 +35,9 @@ class AuthenticationViewsTest(AuthenticationTestBase):
         response = self.client.get(reverse(path_name))
         self.assertTemplateUsed(response, correct_template)
 
-    def test_authentication_logout_view_redirect_is_correct(self):
+    def test_authentication_logout_view_redirect_correct_with_method_get(self):
         response = self.make_login_logout_client()
-        self.assertEqual(response.url, '/auth/login/')
+        self.assertEqual(response.url, '/')
 
     @parameterized.expand([
             ('authentication:register'),
@@ -75,7 +75,7 @@ class AuthenticationViewsTest(AuthenticationTestBase):
         response = client.post(url, data=data)
         stored_messages = list(messages.get_messages(response.wsgi_request))
         message = stored_messages[0].message
-        self.assertEqual(message, 'Usuário criado com sucesso')
+        self.assertEqual(message, 'Usuário criado com sucesso.')
 
     def test_authentication_login_is_success(self):
         client = self.make_login_client()
@@ -106,13 +106,13 @@ class AuthenticationViewsTest(AuthenticationTestBase):
         self.assertEqual(response.url, '/auth/login/')
 
     @parameterized.expand([
-        ('authentication:register'),
-        ('authentication:login'),
-        ('authentication:logout')
+        ('authentication:register', 'Invalid request'),
+        ('authentication:login', 'Invalid request'),
+        ('authentication:logout', 'Requisição de logout inválida.')
     ])
-    def test_authentication_invalid_request(self, path_name):
+    def test_authentication_invalid_request(self, path_name, message_correct):
         client = self.make_login_client()
         url = reverse(path_name)
-        response = client.put(url)
+        response = client.put(url, follow=True)
         message = response.content.decode('utf-8')
-        self.assertEqual(message, "Invalid request")
+        self.assertIn(message_correct, message)
