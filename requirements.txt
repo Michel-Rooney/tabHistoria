@@ -27,4 +27,5 @@ trio==0.22.1
 trio-websocket==0.10.3
 urllib3==2.0.2
 websocket-server==0.6.4
+whitenoise==6.5.0
 wsproto==1.2.0
