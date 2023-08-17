@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse
-from apps.post.models import Post
 from django.db.models.functions import TruncDate
 from django.core.paginator import Paginator
+from utils import post
 
 
 def home(request):
@@ -9,9 +9,9 @@ def home(request):
         category = request.GET.get('category')
 
         if category == 'recent':
-            posts = Post.objects.all().order_by('-creation_date')
+            posts = post.get_posts()
         else:
-            posts = Post.objects.annotate(
+            posts = post.get_posts().annotate(
                 date=TruncDate('creation_date')).order_by('-date', '-likes')
 
         paginator = Paginator(posts, 10)

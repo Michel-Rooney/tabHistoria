@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from .test_post_base import PostTestBase
 from apps.post.models import Comment
 

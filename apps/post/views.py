@@ -5,6 +5,7 @@ from apps.post.models import Post, Comment
 from apps.validation import validation
 from django.contrib import messages
 from django.urls import reverse
+from utils.post import get_post
 
 
 @login_required(login_url='/auth/login', redirect_field_name='next')
@@ -72,7 +73,7 @@ def delete_post(request, pk_post, pk_client):
 
 @login_required(login_url='/auth/login', redirect_field_name='next')
 def update_post(request, pk_post, pk_client):
-    post = Post.objects.filter(pk=pk_post).first()
+    post = get_post(pk=pk_post)
     client = User.objects.filter(pk=pk_client).first()
 
     if not post or not client:

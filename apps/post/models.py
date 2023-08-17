@@ -14,7 +14,11 @@ class Comment(models.Model):
     content = models.TextField()
 
     def list_comments(self):
-        return self.comments.all()[1:]
+        return self.comments.all().select_related(
+            'creator'
+        ).prefetch_related(
+            'comments', 'users_liked', 'users_disliked'
+        )[1:]
 
     def __str__(self) -> str:
         return self.content[0:50]

@@ -26,7 +26,9 @@ class HomeViewsTest(TestCase):
         ('home:home', 'pages/index.html'),
         ('home:about', 'pages/about.html')
     ])
-    def test_home_view_loads_correct_template(self, path_name, correct_template):
+    def test_home_view_loads_correct_template(
+        self, path_name, correct_template
+    ):
         response = self.client.get(reverse(path_name))
         self.assertTemplateUsed(response, correct_template)
 

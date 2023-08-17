@@ -1,18 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from apps.post.models import Post
 from django.core.paginator import Paginator
 from django.contrib import messages
 from apps.validation import validation
+from utils import post
 
 
 def profile(request, id):
     if request.method == 'GET':
         client = get_object_or_404(User, id=id)
-        posts = Post.objects.filter(
-            creator=client.id).order_by('-creation_date')
-
+        posts = post.get_posts(creator=client.id)
         paginator = Paginator(posts, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
