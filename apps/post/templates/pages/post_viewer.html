@@ -4,23 +4,6 @@
 {% block title %}{{post.title}}{% endblock %}
 {% block head %}
 <script>
-  // const htmlContents = document.getElementsByClassName('hidden');
-  // const showElements = document.getElementsByClassName('show');
-
-  // for (let i = 0; i < htmlContents.length; i++) {
-  //   const converter = new showdown.Converter();
-  //   let text = htmlContents[i].innerHTML;
-  //   text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-  //   showElements[i].innerHTML += converter.makeHtml(text);
-  // }
-
-  const elements = document.getElementsByName('text-content')
-  for (let i = 0; i < elements.length; i++) {
-    var simplemde = new SimpleMDE({
-      element: elements[i]
-    })
-  };
-
   function renderMarkdown(markdownContent) {
     const htmlContent = marked(markdownContent);
     return htmlContent;
@@ -98,5 +81,13 @@
 <script type="text/javascript" src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked@2.1.3/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+  const elements = document.getElementsByName('text-content')
+  for (let i = 0; i < elements.length; i++) {
+    var simplemde = new SimpleMDE({
+      element: elements[i]
+    })
+  };
+</script>
 
 {% endblock %}

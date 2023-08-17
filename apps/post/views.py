@@ -8,7 +8,7 @@ from django.urls import reverse
 from utils.post import get_post
 
 
-@login_required(login_url='/auth/login', redirect_field_name='next')
+@login_required(login_url='/auth/login/', redirect_field_name='next')
 def post(request):
     if request.method == 'GET':
         return render(request, 'pages/post.html')
@@ -51,7 +51,7 @@ def render_post(request, id):
     return HttpResponse("Invalid request")
 
 
-@login_required(login_url='/auth/login', redirect_field_name='next')
+@login_required(login_url='/auth/login/', redirect_field_name='next')
 def delete_post(request, pk_post, pk_client):
     if request.method == 'GET':
         client = get_object_or_404(User, pk=pk_client)
@@ -71,7 +71,7 @@ def delete_post(request, pk_post, pk_client):
     return HttpResponse("Invalid request")
 
 
-@login_required(login_url='/auth/login', redirect_field_name='next')
+@login_required(login_url='/auth/login/', redirect_field_name='next')
 def update_post(request, pk_post, pk_client):
     post = get_post(pk=pk_post)
     client = User.objects.filter(pk=pk_client).first()
@@ -106,7 +106,7 @@ def update_post(request, pk_post, pk_client):
         return redirect(f'/client/profile/{client.id}/')
 
 
-@login_required(login_url='/auth/login', redirect_field_name='next')
+@login_required(login_url='/auth/login/', redirect_field_name='next')
 def vote(request, id):
     if request.method == 'POST':
         vote = request.POST.get('vote')
@@ -139,7 +139,7 @@ def vote(request, id):
     return HttpResponse("Invalid request")
 
 
-@login_required(login_url='/auth/login', redirect_field_name='next')
+@login_required(login_url='/auth/login/', redirect_field_name='next')
 def comment(request, id):
     if request.method == 'POST':
         content = request.POST.get('text-content')
