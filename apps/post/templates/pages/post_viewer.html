@@ -19,13 +19,16 @@
       </form>
       <p style="border-right: 1px dotted rgba(255, 255, 255, 0.2); min-height: 90%;" class="m-0"></p>
     </aside>
-    <div style="width: 100%;">
+    <div>
       <div class="d-flex p-0">
         <p><a class="creator" href="{% url 'client:profile' post.creator.id %}">{{ post.creator }}</a></p>
         <p class="date">{{post.creation_date}}</p>
       </div>
-      <iframe src="{{ render_post_url }}" id="iframe-post" frameborder="0" style="width: 100%;"></iframe>
-      <!-- <iframe src="http://20.20.0.225:8000//render_post/{{post.id}}" id="iframe-post" frameborder="0" style="width: 100%;"></iframe> -->
+      <div class="title-header">
+        <h2 class="title">{{ post.title }}</h2>
+        <div id="hidden" class="hidden" hidden>{{post.content}}</div>
+        <div class="article show" id="show"></div>
+      </div>
     </div>
   </section>
   <section class="container text-white pt-4 mt-3">
@@ -60,17 +63,18 @@
 
 {% block script %}
 <script type="text/javascript" src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@2.1.3/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>
-  const htmlContents = document.getElementsByClassName('hidden');
-  const showElements = document.getElementsByClassName('show');
+  // const htmlContents = document.getElementsByClassName('hidden');
+  // const showElements = document.getElementsByClassName('show');
 
-  for (let i = 0; i < htmlContents.length; i++) {
-    const converter = new showdown.Converter();
-    let text = htmlContents[i].innerHTML;
-    text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-    showElements[i].innerHTML += converter.makeHtml(text);
-  }
+  // for (let i = 0; i < htmlContents.length; i++) {
+  //   const converter = new showdown.Converter();
+  //   let text = htmlContents[i].innerHTML;
+  //   text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  //   showElements[i].innerHTML += converter.makeHtml(text);
+  // }
 
   const elements = document.getElementsByName('text-content')  
   for (let i = 0; i < elements.length; i++) {
@@ -78,16 +82,19 @@
       element: elements[i]
   })};
 
-  
-  function adjustIframeHeight() {
-    var iframe = document.getElementById('iframe-post');
-    if (iframe) {
-      iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 10 + 'px';
+  function renderMarkdown(markdownContent) {
+        const htmlContent = marked(markdownContent);
+        return htmlContent;
     }
-  }
-  
-  document.getElementById('iframe-post').onload = function() {
-    adjustIframeHeight();
-  };
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const htmlContents = document.getElementsByClassName('hidden');
+        const showElements = document.getElementsByClassName('show');
+        for (let i = 0; i < htmlContents.length; i++) {
+          const markdownContent = htmlContents[i].innerHTML;
+          const renderedContent = renderMarkdown(markdownContent);
+          showElements[i].innerHTML = renderedContent;
+        }
+    });
 </script>
 {% endblock %}

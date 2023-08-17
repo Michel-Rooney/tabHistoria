@@ -102,7 +102,7 @@ def update_post(request, pk_post, pk_client):
         post.content = text_content
         post.save()
         messages.success(request, 'Post atualizado com sucesso.')
-        return redirect(f'/client/profile/{client.id}')
+        return redirect(f'/client/profile/{client.id}/')
 
 
 @login_required(login_url='/auth/login', redirect_field_name='next')

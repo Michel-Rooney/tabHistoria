@@ -2,10 +2,12 @@
   <nav class="navbar-nav">
     <ul class="nav">
       <li class="nav-item"><a class="nav-link" href="{% url 'home:home' %}"><i class="bi bi-folder2"></i> <span>TabHistoria</span></a></li>
-      <form action="{% url 'home:home' %}" method="GET" >
-        <button type="submit" name="category" value="relevant" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Relevantes</a></li></button>
-        <button type="submit" name="category" value="recent" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Recentes</a></a></li></button>
-      </form>
+      {% if not user.is_authenticated %}
+        <form action="{% url 'home:home' %}" method="GET" >
+          <button type="submit" name="category" value="relevant" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Relevantes</a></li></button>
+          <button type="submit" name="category" value="recent" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Recentes</a></a></li></button>
+        </form>
+      {% endif %}
     </ul>
   </nav>
   <nav class="navbar-nav">
@@ -21,6 +23,11 @@
             <i class="bi bi-person-square" id="change-mode"></i> {{user.username}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="memberDropdown" style="background-color: #161B22;">
+            <form action="{% url 'home:home' %}" method="GET" class="d-flex">
+              <button type="submit" name="category" value="relevant" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Relevantes</a></li></button>
+              <button type="submit" name="category" value="recent" style="border: none; background: none; color: inherit;"><li class="nav-item"><a class="nav-link">Recentes</a></a></li></button>
+            </form>
+            <li><hr style="height: 1px; color: white;"></li>
             <li><a class="dropdown-item" href="{% url 'client:profile' user.id %}"><i class="bi bi-house-door"></i> {{user.username}}</a></li>
             <li><hr style="height: 1px; color: white;"></li>
             <li><a class="dropdown-item" href="{% url 'post:post' %}"><i class="bi bi-plus-lg"></i> Publicar novo conteúdo</a></li>

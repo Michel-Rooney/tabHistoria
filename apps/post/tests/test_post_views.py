@@ -144,7 +144,7 @@ class PostViewsTest(PostTestBase):
         stored_messages = list(messages.get_messages(response.wsgi_request))
         message = stored_messages[0].message
         self.assertEqual(message, 'Post atualizado com sucesso.')
-        self.assertEqual(response.url, '/client/profile/1')
+        self.assertEqual(response.url, '/client/profile/1/')
 
     def test_post_update_validation_error(self):
         client = self.make_login_client(
