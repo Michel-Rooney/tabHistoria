@@ -14,8 +14,14 @@
     <ul class="nav">
       {% comment %} <li class="nav-item"><i class="bi bi-brightness-high nav-link change" id="change-theme"></i></li> {% endcomment %}
       {% if not user.is_authenticated %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'authentication:login' %}">Login</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'authentication:register' %}">Cadastrar</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="memberDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-square" id="change-mode"></i> {{user.username}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="memberDropdown" style="background-color: #161B22;">
+          <li class="nav-item"><a class="nav-link" href="{% url 'authentication:login' %}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'authentication:register' %}">Cadastrar</a></li>
+        </li>
       {% else %}
         <li class="nav-item"><a class="nav-link" href="{% url 'post:post' %}"><i class="bi bi-plus-lg"></i></a></li>
         <li class="nav-item dropdown">
