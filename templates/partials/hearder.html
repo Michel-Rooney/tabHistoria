@@ -12,7 +12,7 @@
   </nav>
   <nav class="navbar-nav">
     <ul class="nav">
-      <li class="nav-item"><i class="bi bi-brightness-high nav-link change" id="change-theme"></i></li>
+      {% comment %} <li class="nav-item"><i class="bi bi-brightness-high nav-link change" id="change-theme"></i></li> {% endcomment %}
       {% if not user.is_authenticated %}
         <li class="nav-item"><a class="nav-link" href="{% url 'authentication:login' %}">Login</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'authentication:register' %}">Cadastrar</a></li>
@@ -34,11 +34,10 @@
             <li><a class="dropdown-item" href="{% url 'client:profile' user.id %}"><i class="bi bi-card-list"></i> Meus conteúdos</a></li>
             <li><a class="dropdown-item" href="{% url 'client:update_profile' user.id %}"><i class="bi bi-pencil"></i> Editar perfil</a></li>
             <li><hr style="height: 1px; color: white;"></li>
-            <div class="d-flex  align-items-center justify-content-center">
+            {% comment %} <div class="d-flex  align-items-center justify-content-center">
               <li class="nav-item"><i class="bi bi-brightness-high nav-link change-sun"></i></li>
               <li class="nav-item"><i class="bi bi-moon-stars nav-link change-moon"></i></li>
-            </div>
-            <li><hr style="height: 1px; color: white;"></li>
+            </div> {% endcomment %}
             <li>
               <form action="{% url 'authentication:logout' %}" method="POST">{% csrf_token %}
                 <input type="hidden" name="username" value="{{ request.user.username }}">

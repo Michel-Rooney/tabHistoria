@@ -52,7 +52,7 @@ html, body {
 
 .ligth-mode {
 	min-height: 80vh;
-	background-color: #dddcdc;
+	background-color: #dddcdc!important;
 	color: black;
 	padding-bottom: 30px;
 }
@@ -167,6 +167,9 @@ body {
 @media (max-width: 600px) {
 	ul.nav {
 		font-size: 15px;
+	}
+	.title-header img {
+		max-width: 250px!important;
 	}
 	.nav {
 		flex-wrap: nowrap!important;
